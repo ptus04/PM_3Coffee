@@ -35,7 +35,7 @@ public class ChiTietCaLamViecDAO {
 					// nhanVien = nhanVienDAO.getNhanVienByMa(maNhanVien); // Nếu cần lấy thêm thông
 					// tin
 
-					CaLamViec caLam = new CaLamViec(0, sql, null, null, sql);
+					CaLamViec caLam = new CaLamViec(rs.getString("maCaLam"), "", null, null, "");
 					caLam.setTenCaLam(rs.getString("maCaLam"));
 					// Giả sử bạn có phương thức để lấy ca làm việc
 					// caLam = caLamViecDAO.getCaLamByMa(maCaLam); // Nếu cần lấy thêm thông tin
@@ -46,6 +46,25 @@ public class ChiTietCaLamViecDAO {
 			}
 		}
 		return chiTietList;
+	}
+
+	// Phương thức lấy theo mã nhân viên và mã ca làm việc
+	public ChiTietCaLamViec getById(String maNhanVien, String maCaLam) throws SQLException {
+		String sql = "SELECT * FROM ChiTietCaLamViec WHERE maNhanVien = ? AND maCaLam = ?";
+		try (PreparedStatement stmt = Database.getInstance().getConnection().prepareStatement(sql)) {
+			stmt.setString(1, maNhanVien);
+			stmt.setString(2, maCaLam);
+			try (ResultSet rs = stmt.executeQuery()) {
+				if (rs.next()) {
+					NhanVien nhanVien = new NhanVien();
+					nhanVien.setMaNhanVien(rs.getString("maNhanVien"));
+
+					CaLamViec caLam = new CaLamViec(rs.getString("maCaLam"), "", null, null, "");
+					return new ChiTietCaLamViec(nhanVien, caLam);
+				}
+			}
+		}
+		return null;
 	}
 
 	// Phương thức để xóa chi tiết ca làm việc
