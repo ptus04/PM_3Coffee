@@ -7,5 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="mssql-jdbc-12.8.1.jre11.jar"/>
+	<classpathentry kind="lib" path="jfreechart-1.5.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
