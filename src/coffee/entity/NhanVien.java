@@ -38,6 +38,7 @@ public class NhanVien {
 		this.hoTen = hoTen;
 	}
 
+
 	public boolean isGioiTinh() {
 		return gioiTinh;
 	}
@@ -132,11 +133,14 @@ public class NhanVien {
 	public NhanVien(String maNhanVien) {
 		this.maNhanVien = maNhanVien;
 	}
+	//constructor
 
 	public NhanVien(String maNhanVien, String hoTen, boolean gioiTinh, LocalDate ngaySinh, String soCanCuoc,
 			String soDienThoai, String diaChi, float heSoLuong, boolean laQuanLy, String hinhAnh, TaiKhoan taiKhoan,
 			TrangThaiLamViec trangThaiLamViec) {
 		this.setMaNhanVien(maNhanVien);
+		this.diaChi=diaChi;
+		this.hoTen = hoTen;
 		this.gioiTinh = gioiTinh;
 		this.ngaySinh = ngaySinh;
 		this.setSoCanCuoc(soCanCuoc);
