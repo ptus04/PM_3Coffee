@@ -1,4 +1,4 @@
-package utils;
+package coffee.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,18 +6,16 @@ import java.sql.SQLException;
 
 public class Database {
 
-	private final String url = "jdbc:sqlserver://localhost:1433;databaseName=3Coffee";
+	private final String url = "jdbc:sqlserver://localhost:1433;databaseName=3Coffee;encrypt=false";
 	private final String user = "sa";
 	private String password;
 
-	public Connection connection;
-	public static Database connectDB;
+	private Connection connection;
+	private static Database connectDB;
 
 	public static Database getInstance() {
-		if (connectDB == null) {
+		if (connectDB == null)
 			connectDB = new Database();
-		}
-
 		return connectDB;
 	}
 

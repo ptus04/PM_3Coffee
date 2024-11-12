@@ -3,10 +3,11 @@ package coffee.entity;
 import java.util.Objects;
 
 public class ChiTietDonHang {
-	private String maChiTietDonHang;
 	private int soLuong;
+	private String ghiChu;
 
-	private CaPhe caPhe;
+	private SanPham sanPham;
+	private DonHang donHang;
 
 	public int getSoLuong() {
 		return soLuong;
@@ -20,57 +21,44 @@ public class ChiTietDonHang {
 		this.soLuong = soLuong;
 	}
 
-	public void setMaChiTietDonHang(String maChiTietDonHang) {
-		if (!maChiTietDonHang.matches("CTDH[0-9]{12}")) {
-			throw new IllegalArgumentException("Mã chi tiết đơn hàng phải bắt đầu bằng CTDH, theo sau là 12 ký số");
-		}
-		this.maChiTietDonHang = maChiTietDonHang;
+	public void setSanPham(SanPham sanPham) {
+		this.sanPham = sanPham;
 	}
 
-	public void setCaPhe(CaPhe caPhe) {
-		this.caPhe = caPhe;
+	public SanPham getSanPham() {
+		return sanPham;
 	}
 
-	public String getMaChiTietDonHang() {
-		return maChiTietDonHang;
+	public void setDonHang(DonHang donHang) {
+		this.donHang = donHang;
 	}
 
-	public CaPhe getCaPhe() {
-		return caPhe;
+	public DonHang getDonHang() {
+		return donHang;
 	}
 
-	public ChiTietDonHang(String maChiTietDonHang) {
-		setMaChiTietDonHang(maChiTietDonHang);
+	public String getGhiChu() {
+		return ghiChu;
 	}
 
-	public ChiTietDonHang(String maChiTietDonHang, int soLuong, CaPhe caPhe) {
-		setMaChiTietDonHang(maChiTietDonHang);
+	public void setGhiChu(String ghiChu) {
+		this.ghiChu = ghiChu;
+	}
+
+	public ChiTietDonHang(int soLuong, String ghiChu, SanPham sanPham, DonHang donHang) {
 		setSoLuong(soLuong);
-		this.caPhe = caPhe;
+		this.ghiChu = ghiChu;
+		this.sanPham = sanPham;
+		this.donHang = donHang;
 	}
 
 	public double tinhTongPhu() {
-		return soLuong * caPhe.getDonGia();
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(maChiTietDonHang);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!(obj instanceof ChiTietDonHang))
-			return false;
-		ChiTietDonHang other = (ChiTietDonHang) obj;
-		return Objects.equals(maChiTietDonHang, other.maChiTietDonHang);
+		return soLuong * sanPham.getDonGia();
 	}
 
 	@Override
 	public String toString() {
-		return "ChiTietDonHang {maChiTietDonHang: " + maChiTietDonHang + ", soLuong: " + soLuong + ", caPhe: " + caPhe
+		return "ChiTietDonHang {soLuong: " + soLuong + ", ghiChu: " + ghiChu + ", sanPham: " + sanPham
 				+ ", tinhTongPhu(): " + tinhTongPhu() + "}";
 	}
 
