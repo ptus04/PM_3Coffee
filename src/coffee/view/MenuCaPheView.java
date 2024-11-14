@@ -6,9 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MenuCaPheView extends JFrame {
-    private Map<String, Integer> productQuantities = new HashMap<>();
-    private JTextField txtQuantity;
-    private Map<String, String> productImages = new HashMap<>();
+    private Map<String, Integer> soLuongSanPham = new HashMap<>();
+    private JTextField txtSoLuong;
+    private Map<String, String> hinhAnhSanPham = new HashMap<>();
+    private String sanPhamDuocChon;
 
     public MenuCaPheView() {
         setTitle("Quản Lý Menu Cà Phê");
@@ -18,34 +19,34 @@ public class MenuCaPheView extends JFrame {
         setLayout(new BorderLayout());
 
         // Thêm đường dẫn ảnh cho từng sản phẩm
-        productImages.put("Americano-50.000(VND)", "src/imageCoffee/cafeamericano.jpg");
-        productImages.put("Capuchino-60.000(VND)", "src/imageCoffee/cappuchino.jpg");
-        productImages.put("Caramelmachiato-63.000(VND)", "src/imageCoffee/caramelmachiato.jpg");
-        productImages.put("Cinnamondolce-68.000(VND)", "src/imageCoffee/cinnamondolce.jpg");
-        productImages.put("Espero-45.000(VND)", "src/imageCoffee/espero.jpg");
-        productImages.put("Esprerolatte-75.000(VND)", "src/imageCoffee/esprerolatte.jpg");
-        productImages.put("Flatwhite-85.000(VND)", "src/imageCoffee/flatwhite.jpg");
-        productImages.put("Honeyflatwhite-35.000(VND)", "src/imageCoffee/honeyflatwhite.jpg");
-        productImages.put("Latte-80.000(VND)", "src/imageCoffee/latte.jpg");
-        productImages.put("Miso-40.000(VND)", "src/imageCoffee/misto.jpg");
-        productImages.put("Mocha-73.000(VND)", "src/imageCoffee/mocha.jpg");
-        productImages.put("Roastcoffee-69.000(VND)", "src/imageCoffee/roastcoffee.jpg");
-        productImages.put("Spicelatte-49.000(VND)", "src/imageCoffee/spicelatte.jpg");
-        productImages.put("Whitechocolatelatte-52.000(VND)", "src/imageCoffee/whitechocolatelatte.jpg");
+        hinhAnhSanPham.put("Americano-50.000(VND)", "src/imageCoffee/cafeamericano.jpg");
+        hinhAnhSanPham.put("Capuchino-60.000(VND)", "src/imageCoffee/cappuchino.jpg");
+        hinhAnhSanPham.put("Caramelmachiato-63.000(VND)", "src/imageCoffee/caramelmachiato.jpg");
+        hinhAnhSanPham.put("Cinnamondolce-68.000(VND)", "src/imageCoffee/cinnamondolce.jpg");
+        hinhAnhSanPham.put("Espero-45.000(VND)", "src/imageCoffee/espero.jpg");
+        hinhAnhSanPham.put("Esprerolatte-75.000(VND)", "src/imageCoffee/esprerolatte.jpg");
+        hinhAnhSanPham.put("Flatwhite-85.000(VND)", "src/imageCoffee/flatwhite.jpg");
+        hinhAnhSanPham.put("Honeyflatwhite-35.000(VND)", "src/imageCoffee/honeyflatwhite.jpg");
+        hinhAnhSanPham.put("Latte-80.000(VND)", "src/imageCoffee/latte.jpg");
+        hinhAnhSanPham.put("Miso-40.000(VND)", "src/imageCoffee/misto.jpg");
+        hinhAnhSanPham.put("Mocha-73.000(VND)", "src/imageCoffee/mocha.jpg");
+        hinhAnhSanPham.put("Roastcoffee-69.000(VND)", "src/imageCoffee/roastcoffee.jpg");
+        hinhAnhSanPham.put("Spicelatte-49.000(VND)", "src/imageCoffee/spicelatte.jpg");
+        hinhAnhSanPham.put("Whitechocolatelatte-52.000(VND)", "src/imageCoffee/whitechocolatelatte.jpg");
 
-        // Tạo panel tiêu đề với màu nền nâu đậm và font chữ lớn
-        JPanel titlePanel = new JPanel();
-        titlePanel.setBackground(new Color(92, 64, 51));
-        JLabel titleLabel = new JLabel("MENU COFFEE OPTION - 3COFFEE");
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Serif", Font.BOLD, 28));
-        titlePanel.add(titleLabel);
-        add(titlePanel, BorderLayout.NORTH);
+        // Tạo panel tiêu đề
+        JPanel tieuDePanel = new JPanel();
+        tieuDePanel.setBackground(new Color(92, 64, 51));
+        JLabel tieuDeLabel = new JLabel("MENU COFFEE OPTION - 3COFFEE");
+        tieuDeLabel.setForeground(Color.WHITE);
+        tieuDeLabel.setFont(new Font("Serif", Font.BOLD, 28));
+        tieuDePanel.add(tieuDeLabel);
+        add(tieuDePanel, BorderLayout.NORTH);
 
         // Panel các sản phẩm
-        JPanel productPanel = new JPanel(new GridLayout(3, 3, 15, 15));
-        productPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        String[] productNames = {
+        JPanel sanPhamPanel = new JPanel(new GridLayout(3, 3, 15, 15));
+        sanPhamPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        String[] tenSanPham = {
             "Americano-50.000(VND)", "Capuchino-60.000(VND)", "Caramelmachiato-63.000(VND)", 
             "Cinnamondolce-68.000(VND)", "Espero-45.000(VND)", "Esprerolatte-75.000(VND)", 
             "Flatwhite-85.000(VND)", "Honeyflatwhite-35.000(VND)", "Latte-80.000(VND)", 
@@ -53,84 +54,85 @@ public class MenuCaPheView extends JFrame {
             "Spicelatte-49.000(VND)", "Whitechocolatelatte-52.000(VND)"
         };
 
-        for (String productName : productNames) {
-            productQuantities.put(productName, 0);
-            JPanel itemPanel = createProductPanel(productName);
-            productPanel.add(itemPanel);
+        for (String sanPham : tenSanPham) {
+            soLuongSanPham.put(sanPham, 0);
+            JPanel itemPanel = taoPanelSanPham(sanPham);
+            sanPhamPanel.add(itemPanel);
         }
-        
-        // Panel thanh toán và điều khiển
-        JPanel controlPanel = new JPanel();
-        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
-        controlPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel lblTitle = new JLabel("Mangement Order");
-        lblTitle.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 24));
-        lblTitle.setForeground(new Color(139, 69, 19));
-        lblTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        controlPanel.add(lblTitle);
+        // Panel điều khiển
+        JPanel dieuKhienPanel = new JPanel();
+        dieuKhienPanel.setLayout(new BoxLayout(dieuKhienPanel, BoxLayout.Y_AXIS));
+        dieuKhienPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        controlPanel.add(Box.createVerticalStrut(10));
-        controlPanel.add(createInputField("Số lượng:", txtQuantity = new JTextField(30)));
-        
-        
-        
+        JLabel lblTieuDe = new JLabel("Quản Lý Đơn Hàng");
+        lblTieuDe.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 24));
+        lblTieuDe.setForeground(new Color(139, 69, 19));
+        lblTieuDe.setAlignmentX(Component.CENTER_ALIGNMENT);
+        dieuKhienPanel.add(lblTieuDe);
 
+        dieuKhienPanel.add(Box.createVerticalStrut(10));
+        dieuKhienPanel.add(taoInputField("Số lượng:", txtSoLuong = new JTextField(30)));
 
-        // Nút điều khiển được cải thiện
-        JButton btnAddProduct = createStyledButton("Thêm Món", new Color(139, 69, 19));
-        JButton btnRemoveProduct = createStyledButton("Xóa Món", new Color(139, 69, 19));
-        JButton btnUpdateProduct = createStyledButton("Sửa Món", new Color(139, 69, 19));
+        // Nút điều khiển
+        JButton btnThemSanPham = taoNut("Thêm Món", new Color(139, 69, 19));
+        JButton btnXoaSanPham = taoNut("Xóa Món", new Color(139, 69, 19));
+        JButton btnSuaSanPham = taoNut("Sửa Món", new Color(139, 69, 19));
 
-
-
-        btnAddProduct.addActionListener(e -> addProduct());
-        btnRemoveProduct.addActionListener(e -> removeProduct());
-        btnUpdateProduct.addActionListener(e -> updateProductQuantity());
+        btnThemSanPham.addActionListener(e -> themSanPham());
+        btnXoaSanPham.addActionListener(e -> xoaSanPham());
+        btnSuaSanPham.addActionListener(e -> suaSoLuongSanPham());
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3, 10, 0));
-        buttonPanel.add(btnAddProduct);
-        buttonPanel.add(btnRemoveProduct);
-        buttonPanel.add(btnUpdateProduct);
-        controlPanel.add(buttonPanel);
+        buttonPanel.add(btnThemSanPham);
+        buttonPanel.add(btnXoaSanPham);
+        buttonPanel.add(btnSuaSanPham);
+        dieuKhienPanel.add(buttonPanel);
 
-        add(productPanel, BorderLayout.CENTER);
-        add(controlPanel, BorderLayout.EAST);
+        add(sanPhamPanel, BorderLayout.CENTER);
+        add(dieuKhienPanel, BorderLayout.EAST);
     }
 
-    private JPanel createProductPanel(String productName) {
+    private JPanel taoPanelSanPham(String sanPham) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createTitledBorder(productName));
+        panel.setBorder(BorderFactory.createTitledBorder(sanPham));
         panel.setPreferredSize(new Dimension(180, 220));
 
-        String imagePath = productImages.get(productName);
-        if (imagePath != null) {
-            ImageIcon productIcon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH));
-            JLabel lblImage = new JLabel(productIcon);
-            lblImage.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(lblImage);
+        String duongDanAnh = hinhAnhSanPham.get(sanPham);
+        if (duongDanAnh != null) {
+            ImageIcon iconSanPham = new ImageIcon(new ImageIcon(duongDanAnh).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH));
+            JLabel lblAnh = new JLabel(iconSanPham);
+            lblAnh.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panel.add(lblAnh);
         } else {
-            JLabel lblError = new JLabel("Ảnh không có sẵn");
-            lblError.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(lblError);
+            JLabel lblLoi = new JLabel("Ảnh không có sẵn");
+            lblLoi.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panel.add(lblLoi);
         }
 
+        panel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sanPhamDuocChon = sanPham;
+                txtSoLuong.setText(String.valueOf(soLuongSanPham.get(sanPhamDuocChon)));
+            }
+        });
+
         JPanel buttonPanel = new JPanel();
-        JButton btnAdd = new JButton("+");
-        JButton btnSubtract = new JButton("-");
+        JButton btnThem = new JButton("+");
+        JButton btnTru = new JButton("-");
 
-        btnAdd.addActionListener(e -> updateQuantity(productName, 1));
-        btnSubtract.addActionListener(e -> updateQuantity(productName, -1));
+        btnThem.addActionListener(e -> capNhatSoLuong(sanPham, 1));
+        btnTru.addActionListener(e -> capNhatSoLuong(sanPham, -1));
 
-        buttonPanel.add(btnAdd);
-        buttonPanel.add(btnSubtract);
+        buttonPanel.add(btnThem);
+        buttonPanel.add(btnTru);
         panel.add(buttonPanel);
 
         return panel;
     }
 
-    private JButton createStyledButton(String text, Color color) {
+    private JButton taoNut(String text, Color color) {
         JButton button = new JButton(text);
         button.setForeground(Color.WHITE);
         button.setBackground(color);
@@ -139,7 +141,7 @@ public class MenuCaPheView extends JFrame {
         return button;
     }
 
-    private JPanel createInputField(String label, JTextField textField) {
+    private JPanel taoInputField(String label, JTextField textField) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.add(new JLabel(label));
         panel.add(textField);
@@ -147,29 +149,66 @@ public class MenuCaPheView extends JFrame {
         return panel;
     }
 
-    private void updateQuantity(String productName, int amount) {
-        int currentQuantity = productQuantities.get(productName);
-        int newQuantity = Math.max(0, currentQuantity + amount);
-        productQuantities.put(productName, newQuantity);
-        txtQuantity.setText(String.valueOf(newQuantity));
+    private void capNhatSoLuong(String sanPham, int soLuong) {
+        int soLuongHienTai = soLuongSanPham.get(sanPham);
+        int soLuongMoi = Math.max(0, soLuongHienTai + soLuong);
+        soLuongSanPham.put(sanPham, soLuongMoi);
+        if (sanPham.equals(sanPhamDuocChon)) {
+            txtSoLuong.setText(String.valueOf(soLuongMoi));
+        }
     }
 
-    private void addProduct() {
-        // Mã cho nút Thêm Món
+    private void themSanPham() {
+        if (sanPhamDuocChon != null) {
+            try {
+                int soLuong = Integer.parseInt(txtSoLuong.getText());
+                if (soLuong < 0) {
+                    JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                int soLuongHienTai = soLuongSanPham.getOrDefault(sanPhamDuocChon, 0);
+                soLuongSanPham.put(sanPhamDuocChon, soLuongHienTai + soLuong);
+                JOptionPane.showMessageDialog(this, "Đã thêm " + soLuong + " " + sanPhamDuocChon + ".");
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn món để thêm.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
-    private void removeProduct() {
-        // Mã cho nút Xóa Món
+    private void xoaSanPham() {
+        if (sanPhamDuocChon != null) {
+            soLuongSanPham.remove(sanPhamDuocChon);
+            txtSoLuong.setText("");
+            JOptionPane.showMessageDialog(this, "Đã xóa " + sanPhamDuocChon + " khỏi menu.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn món để xóa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
-    private void updateProductQuantity() {
-        // Mã cho nút Sửa Số Lượng
+    private void suaSoLuongSanPham() {
+        if (sanPhamDuocChon != null) {
+            try {
+                int soLuong = Integer.parseInt(txtSoLuong.getText());
+                if (soLuong < 0) {
+                    JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                soLuongSanPham.put(sanPhamDuocChon, soLuong);
+                JOptionPane.showMessageDialog(this, "Đã cập nhật số lượng " + sanPhamDuocChon + " thành " + soLuong + ".");
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn món để sửa số lượng.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            MenuCaPheView frame = new MenuCaPheView();
-            frame.setVisible(true);
+            MenuCaPheView view = new MenuCaPheView();
+            view.setVisible(true);
         });
     }
 }

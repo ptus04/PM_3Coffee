@@ -3,58 +3,76 @@ package coffee.entity;
 import java.util.Objects;
 
 public class TaiKhoan {
-	private String tenDangNhap;
-	private String matKhau;
-	private NhanVien nhanVien;
+    private String tenDangNhap;
+    private String matKhau;
+    private NhanVien nhanVien;
 
-	public String getTenDangNhap() {
-		return tenDangNhap;
-	}
+    // Biểu thức chính quy để kiểm tra tài khoản chỉ chứa chữ cái và số
+    private static final String USERNAME_PATTERN = "^[a-zA-Z0-9]+$";
 
-	public void setTenDangNhap(String tenDangNhap) {
-		this.tenDangNhap = tenDangNhap;
-	}
+    public String getTenDangNhap() {
+        return tenDangNhap;
+    }
 
-	public String getMatKhau() {
-		return matKhau;
-	}
+    public void setTenDangNhap(String tenDangNhap) {
+        // Kiểm tra tài khoản theo biểu thức chính quy
+        if (isValidUsername(tenDangNhap)) {
+            this.tenDangNhap = tenDangNhap;
+        } else {
+            throw new IllegalArgumentException("Tài khoản chỉ được chứa chữ cái và số.");
+        }
+    }
 
-	public void setMatKhau(String matKhau) {
-		this.matKhau = matKhau;
-	}
+    public String getMatKhau() {
+        return matKhau;
+    }
 
-	public NhanVien getNhanVien() {
-		return nhanVien;
-	}
+    public void setMatKhau(String matKhau) {
+        // Bỏ kiểm tra mật khẩu, có thể là bất kỳ chuỗi nào
+        this.matKhau = matKhau;
+    }
 
-	public void setNhanVien(NhanVien nhanVien) {
-		this.nhanVien = nhanVien;
-	}
+    public NhanVien getNhanVien() {
+        return nhanVien;
+    }
 
-	public TaiKhoan(String tenDangNhap, String matKhau, NhanVien nhanVien) {
-		this.tenDangNhap = tenDangNhap;
-		this.matKhau = matKhau;
-		this.nhanVien = nhanVien;
-	}
+    public void setNhanVien(NhanVien nhanVien) {
+        this.nhanVien = nhanVien;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(matKhau, tenDangNhap);
-	}
+    public TaiKhoan(String tenDangNhap, String matKhau, NhanVien nhanVien) {
+        if (isValidUsername(tenDangNhap)) {
+            this.tenDangNhap = tenDangNhap;
+        } else {
+            throw new IllegalArgumentException("Tài khoản chỉ được chứa chữ cái và số.");
+        }
+        this.matKhau = matKhau; // Không kiểm tra mật khẩu
+        this.nhanVien = nhanVien;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!(obj instanceof TaiKhoan))
-			return false;
-		TaiKhoan other = (TaiKhoan) obj;
-		return Objects.equals(matKhau, other.matKhau) && Objects.equals(tenDangNhap, other.tenDangNhap);
-	}
+    // Kiểm tra tính hợp lệ của tên tài khoản
+    private boolean isValidUsername(String username) {
+        // Kiểm tra tên tài khoản có khớp với biểu thức chính quy không
+        return username != null && username.matches(USERNAME_PATTERN);
+    }
 
-	@Override
-	public String toString() {
-		return "TaiKhoan {tenDangNhap: " + tenDangNhap + ", nhanVien: " + nhanVien + "}";
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(matKhau, tenDangNhap);
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof TaiKhoan))
+            return false;
+        TaiKhoan other = (TaiKhoan) obj;
+        return Objects.equals(matKhau, other.matKhau) && Objects.equals(tenDangNhap, other.tenDangNhap);
+    }
+
+    @Override
+    public String toString() {
+        return "TaiKhoan {tenDangNhap: " + tenDangNhap + ", nhanVien: " + nhanVien + "}";
+    }
 }

@@ -1,10 +1,14 @@
 package coffee.view;
 
+import coffee.dao.KhachHangDAO;
+import coffee.entity.KhachHang;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 
 public class TraCuuKhachHangView extends JFrame {
@@ -13,39 +17,36 @@ public class TraCuuKhachHangView extends JFrame {
     private JButton btnSearch, btnEditName;
     private JTable table;
     private DefaultTableModel tableModel;
+    private KhachHangDAO khachHangDAO;
 
     public TraCuuKhachHangView() {
-        // Cấu hình JFrame
-        setTitle("Quản Lý  Khách Hàng");
+        setTitle("Quản Lý Khách Hàng");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Thêm màu nền cho giao diện
-        getContentPane().setBackground(new Color(139, 69, 19)); // Màu nâu đất
+        khachHangDAO = KhachHangDAO.getInstance();
 
-        // Layout chính của panel
+        getContentPane().setBackground(new Color(139, 69, 19));
+
         setLayout(new BorderLayout());
 
-        // Panel tìm kiếm
         JPanel searchPanel = new JPanel();
         searchPanel.setLayout(new FlowLayout());
-        searchPanel.setBackground(new Color(139, 69, 19)); // Màu nâu đất cho panel
+        searchPanel.setBackground(new Color(139, 69, 19));
 
         JLabel lblSearch = new JLabel("Nhập mã khách hàng hoặc tên:");
-        lblSearch.setForeground(Color.WHITE); // Màu chữ trắng
+        lblSearch.setForeground(Color.WHITE);
         txtSearch = new JTextField(20);
         btnSearch = new JButton("Tìm kiếm");
         btnEditName = new JButton("Sửa tên");
 
-        // Lắng nghe sự kiện khi người dùng nhấn nút Tìm kiếm
         btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 searchCustomer();
             }
         });
 
-        // Lắng nghe sự kiện khi người dùng nhấn nút Sửa tên
         btnEditName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 editCustomerName();
@@ -57,47 +58,39 @@ public class TraCuuKhachHangView extends JFrame {
         searchPanel.add(btnSearch);
         searchPanel.add(btnEditName);
 
-        // Tạo bảng để hiển thị kết quả tìm kiếm
         tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(new String[]{"Mã Khách Hàng", "Họ Tên", "Số Điện Thoại", "Địa Chỉ"});
         table = new JTable(tableModel);
-        table.setBorder(BorderFactory.createLineBorder(new Color(139, 69, 19), 2));  // Màu cà phê cho khung
+        table.setBorder(BorderFactory.createLineBorder(new Color(139, 69, 19), 2));
 
-        // Thay đổi màu nền của bảng và viền của các ô
-        table.setBackground(new Color(222, 184, 135)); // Màu nền cà phê nhạt cho bảng
-        table.setGridColor(new Color(139, 69, 19)); // Màu viền của các ô (màu cà phê)
+        table.setBackground(new Color(222, 184, 135));
+        table.setGridColor(new Color(139, 69, 19));
 
-        // Thêm bảng vào JScrollPane
         JScrollPane tableScrollPane = new JScrollPane(table);
 
-        // Thêm các thành phần vào panel chính
         add(searchPanel, BorderLayout.NORTH);
         add(tableScrollPane, BorderLayout.CENTER);
 
-        // Hiển thị dữ liệu mẫu vào bảng khi khởi tạo
-        displaySampleData();
+        displayCustomerData();
     }
 
-    // Phương thức hiển thị dữ liệu mẫu vào bảng
-    private void displaySampleData() {
-        List<Object[]> resultList = getSampleData();
-
-        // Hiển thị dữ liệu vào bảng
-        for (Object[] customer : resultList) {
-            tableModel.addRow(customer);
+    private void displayCustomerData() {
+        try {
+            List<KhachHang> resultList = khachHangDAO.getAll();
+            for (KhachHang customer : resultList) {
+                tableModel.addRow(new Object[]{
+                    customer.getSoDienThoai(),
+                    customer.getTenKhachHang(),
+                    customer.getSoDienThoai(),
+                    "Địa chỉ không có sẵn"
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Không thể tải dữ liệu từ cơ sở dữ liệu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    // Phương thức lấy dữ liệu mẫu
-    private List<Object[]> getSampleData() {
-        List<Object[]> resultList = new ArrayList<>();
-        resultList.add(new Object[]{"KH000001", "Nguyễn Thị Mai", "0901234567", "Hà Nội"});
-        resultList.add(new Object[]{"KH000002", "Lê Minh Tuấn", "0987654321", "Đà Nẵng"});
-        resultList.add(new Object[]{"KH000003", "Trần Thị Lan", "0912345678", "Hồ Chí Minh"});
-        return resultList;
-    }
-
-    // Phương thức tìm kiếm khách hàng
     private void searchCustomer() {
         String searchQuery = txtSearch.getText().trim();
         if (searchQuery.isEmpty()) {
@@ -105,30 +98,28 @@ public class TraCuuKhachHangView extends JFrame {
             return;
         }
 
-        // Xóa dữ liệu cũ trong bảng trước khi hiển thị kết quả mới
         tableModel.setRowCount(0);
 
-        List<Object[]> resultList = getSampleData(); // Lấy dữ liệu mẫu
-
-        // Lọc kết quả tìm kiếm theo mã khách hàng hoặc tên
-        List<Object[]> filteredList = new ArrayList<>();
-        for (Object[] customer : resultList) {
-            if (customer[0].toString().contains(searchQuery) || customer[1].toString().toLowerCase().contains(searchQuery.toLowerCase())) {
-                filteredList.add(customer);
+        try {
+            List<KhachHang> filteredList = khachHangDAO.getById(searchQuery) != null ? List.of(khachHangDAO.getById(searchQuery)) : List.of();
+            if (!filteredList.isEmpty()) {
+                for (KhachHang customer : filteredList) {
+                    tableModel.addRow(new Object[]{
+                        customer.getSoDienThoai(),
+                        customer.getTenKhachHang(),
+                        customer.getSoDienThoai(),
+                        "Địa chỉ không có sẵn"
+                    });
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng phù hợp.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
-        }
-
-        // Hiển thị kết quả tìm kiếm lên bảng
-        if (!filteredList.isEmpty()) {
-            for (Object[] customer : filteredList) {
-                tableModel.addRow(customer);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng phù hợp.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Có lỗi khi tìm kiếm trong cơ sở dữ liệu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    // Phương thức sửa tên khách hàng
     private void editCustomerName() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1) {
@@ -136,8 +127,20 @@ public class TraCuuKhachHangView extends JFrame {
             String newName = JOptionPane.showInputDialog(this, "Nhập tên mới cho khách hàng:", oldName);
 
             if (newName != null && !newName.trim().isEmpty()) {
-                tableModel.setValueAt(newName, selectedRow, 1); // Cập nhật tên mới vào bảng
-                JOptionPane.showMessageDialog(this, "Tên khách hàng đã được cập nhật.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                String customerId = tableModel.getValueAt(selectedRow, 0).toString();
+
+                try {
+                    KhachHang customer = khachHangDAO.getById(customerId);
+                    if (customer != null) {
+                        customer.setTenKhachHang(newName);
+                        khachHangDAO.capNhat(customer);
+                        tableModel.setValueAt(newName, selectedRow, 1);
+                        JOptionPane.showMessageDialog(this, "Tên khách hàng đã được cập nhật.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Có lỗi khi cập nhật tên trong cơ sở dữ liệu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Tên không hợp lệ.", "Thông báo", JOptionPane.ERROR_MESSAGE);
             }

@@ -86,5 +86,34 @@ public class NhanVienDAO {
 			e.printStackTrace();
 		}
 	}
+	public List<NhanVien> timKiemNhanVien(String maNhanVien) throws SQLException {
+	    List<NhanVien> nhanVienList = new ArrayList<>();
+	    String sql = "SELECT * FROM NhanVien WHERE maNhanVien LIKE ?";
+	    
+	    try (PreparedStatement stmt = Database.getInstance().getConnection().prepareStatement(sql)) {
+	        stmt.setString(1, "%" + maNhanVien + "%");  // Tìm kiếm với phần trăm để tìm kiếm theo chuỗi
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            while (rs.next()) {
+	                NhanVien nv = new NhanVien();
+	                nv.setMaNhanVien(rs.getString("maNhanVien"));
+	                nv.setHoTen(rs.getString("hoTen"));
+	                nv.setGioiTinh(rs.getBoolean("gioiTinh"));
+	                nv.setNgaySinh(rs.getDate("ngaySinh").toLocalDate());
+	                nv.setSoCanCuoc(rs.getString("soCanCuoc"));
+	                nv.setSoDienThoai(rs.getString("soDienThoai"));
+	                nv.setDiaChi(rs.getString("diaChi"));
+	                nv.setHeSoLuong(rs.getFloat("heSoLuong"));
+	                nv.setLaQuanLy(rs.getBoolean("laQuanLy"));
+	                nv.setTrangThaiLamViec(TrangThaiLamViec.fromValue(rs.getInt("trangThaiLamViec")));
+	                nv.setHinhAnh(rs.getString("hinhAnh"));
+	                nhanVienList.add(nv);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return nhanVienList;
+	}
+
 
 }
