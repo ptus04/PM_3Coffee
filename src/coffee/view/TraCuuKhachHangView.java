@@ -1,5 +1,6 @@
 package coffee.view;
 
+import coffee.controller.KhachHangController;
 import coffee.dao.KhachHangDAO;
 import coffee.entity.KhachHang;
 
@@ -73,8 +74,25 @@ public class TraCuuKhachHangView extends JFrame {
 
         displayCustomerData();
     }
+ // Phương thức để hiển thị lại dữ liệu sau khi sửa
+    public void updateTableAfterEdit(String customerId, String newName) {
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            String id = tableModel.getValueAt(i, 0).toString();
+            if (id.equals(customerId)) {
+                tableModel.setValueAt(newName, i, 1);
+                JOptionPane.showMessageDialog(this, "Tên khách hàng đã được cập nhật.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+        }
+    }
 
-    private void displayCustomerData() {
+    // Phương thức hiển thị thông báo lỗi
+    public void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
+
+
+    public void displayCustomerData() {
         try {
             List<KhachHang> resultList = khachHangDAO.getAll();
             for (KhachHang customer : resultList) {
@@ -91,7 +109,7 @@ public class TraCuuKhachHangView extends JFrame {
         }
     }
 
-    private void searchCustomer() {
+    public void searchCustomer() {
         String searchQuery = txtSearch.getText().trim();
         if (searchQuery.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin tìm kiếm.", "Thông báo", JOptionPane.WARNING_MESSAGE);
@@ -154,11 +172,37 @@ public class TraCuuKhachHangView extends JFrame {
             public void run() {
                 try {
                     TraCuuKhachHangView frame = new TraCuuKhachHangView();
+                    KhachHangController controller = new KhachHangController(frame); // Tạo đối tượng controller
                     frame.setVisible(true);
+                    
+                    // Kết nối sự kiện với controller
+                    frame.btnSearch.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            controller.searchCustomer(frame.txtSearch.getText().trim());
+                        }
+                    });
+
+                    frame.btnEditName.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            int selectedRow = frame.table.getSelectedRow();
+                            if (selectedRow != -1) {
+                                String oldName = frame.tableModel.getValueAt(selectedRow, 1).toString();
+                                String customerId = frame.tableModel.getValueAt(selectedRow, 0).toString();
+                                String newName = JOptionPane.showInputDialog(frame, "Nhập tên mới cho khách hàng:", oldName);
+                                if (newName != null) {
+                                    controller.editCustomerName(oldName, newName, customerId);
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(frame, "Vui lòng chọn một khách hàng để sửa tên.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                            }
+                        }
+                    });
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
     }
+
 }

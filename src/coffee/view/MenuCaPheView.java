@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-
+import coffee.dao.Database;
+import java.sql.*;
+import coffee.controller.MenuCaPheController;
 public class MenuCaPheView extends JFrame {
-    private Map<String, Integer> soLuongSanPham = new HashMap<>();
-    private JTextField txtSoLuong;
     private Map<String, String> hinhAnhSanPham = new HashMap<>();
     private String sanPhamDuocChon;
 
@@ -19,20 +19,28 @@ public class MenuCaPheView extends JFrame {
         setLayout(new BorderLayout());
 
         // Thêm đường dẫn ảnh cho từng sản phẩm
-        hinhAnhSanPham.put("Americano-50.000(VND)", "src/imageCoffee/cafeamericano.jpg");
-        hinhAnhSanPham.put("Capuchino-60.000(VND)", "src/imageCoffee/cappuchino.jpg");
-        hinhAnhSanPham.put("Caramelmachiato-63.000(VND)", "src/imageCoffee/caramelmachiato.jpg");
-        hinhAnhSanPham.put("Cinnamondolce-68.000(VND)", "src/imageCoffee/cinnamondolce.jpg");
-        hinhAnhSanPham.put("Espero-45.000(VND)", "src/imageCoffee/espero.jpg");
-        hinhAnhSanPham.put("Esprerolatte-75.000(VND)", "src/imageCoffee/esprerolatte.jpg");
-        hinhAnhSanPham.put("Flatwhite-85.000(VND)", "src/imageCoffee/flatwhite.jpg");
-        hinhAnhSanPham.put("Honeyflatwhite-35.000(VND)", "src/imageCoffee/honeyflatwhite.jpg");
-        hinhAnhSanPham.put("Latte-80.000(VND)", "src/imageCoffee/latte.jpg");
-        hinhAnhSanPham.put("Miso-40.000(VND)", "src/imageCoffee/misto.jpg");
-        hinhAnhSanPham.put("Mocha-73.000(VND)", "src/imageCoffee/mocha.jpg");
-        hinhAnhSanPham.put("Roastcoffee-69.000(VND)", "src/imageCoffee/roastcoffee.jpg");
-        hinhAnhSanPham.put("Spicelatte-49.000(VND)", "src/imageCoffee/spicelatte.jpg");
-        hinhAnhSanPham.put("Whitechocolatelatte-52.000(VND)", "src/imageCoffee/whitechocolatelatte.jpg");
+        hinhAnhSanPham.put("Americano-50.000(VND)", "src/imageCoffee/CAFE AMERICANO.PNG");
+        hinhAnhSanPham.put("Miso-40.000(VND)", "src/imageCoffee/CAFE MISTO.PNG");
+        hinhAnhSanPham.put("Mocha-73.000(VND)", "src/imageCoffee/CAFE MOCHA.PNG");
+        hinhAnhSanPham.put("Latte-80.000(VND)", "src/imageCoffee/CAFFE LATTE.PNG");
+        hinhAnhSanPham.put("Capuchino-60.000(VND)", "src/imageCoffee/CAPPUCCINO.PNG");
+        hinhAnhSanPham.put("Caramelmachiato-63.000(VND)", "src/imageCoffee/CARAMEL MACCHIATO.PNG");
+        hinhAnhSanPham.put("Cinnamondolce-68.000(VND)", "src/imageCoffee/CINNAMON DOLCE LATTE.PNG");
+        hinhAnhSanPham.put("EsperoMacchiato-100.000(VND)", "src/imageCoffee/ESPRESO  MACCHIATO.PNG");
+        hinhAnhSanPham.put("EsperoConPanna-100.000(VND)", "src/imageCoffee/ESPRESO CON PANNA.PNG");
+        hinhAnhSanPham.put("Espero-45.000(VND)", "src/imageCoffee/ESPRESO.PNG");
+       
+       
+        hinhAnhSanPham.put("Flatwhite-85.000(VND)", "src/imageCoffee/FLAT WHITE.PNG");
+        hinhAnhSanPham.put("Honeyflatwhite-35.000(VND)", "src/imageCoffee/HONEY ALMONDMILK FLAT WHITE.PNG");
+        hinhAnhSanPham.put("PumpkinSpiceLatte-100.000(VND)", "src/imageCoffee/PUMPKIN SPICE LATTE.PNG");
+        
+      
+     
+       
+        hinhAnhSanPham.put("Roastcoffee-69.000(VND)", "src/imageCoffee/ROAST COFFEE.PNG");
+        
+        hinhAnhSanPham.put("Whitechocolatemocha-52.000(VND)", "src/imageCoffee/WHITE CHOCOLATE MOCHA.PNG");
 
         // Tạo panel tiêu đề
         JPanel tieuDePanel = new JPanel();
@@ -47,15 +55,14 @@ public class MenuCaPheView extends JFrame {
         JPanel sanPhamPanel = new JPanel(new GridLayout(3, 3, 15, 15));
         sanPhamPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         String[] tenSanPham = {
-            "Americano-50.000(VND)", "Capuchino-60.000(VND)", "Caramelmachiato-63.000(VND)", 
-            "Cinnamondolce-68.000(VND)", "Espero-45.000(VND)", "Esprerolatte-75.000(VND)", 
-            "Flatwhite-85.000(VND)", "Honeyflatwhite-35.000(VND)", "Latte-80.000(VND)", 
-            "Miso-40.000(VND)", "Mocha-73.000(VND)", "Roastcoffee-69.000(VND)", 
-            "Spicelatte-49.000(VND)", "Whitechocolatelatte-52.000(VND)"
+            "Americano-50.000(VND)", "Miso-40.000(VND)", "Mocha-73.000(VND)", 
+            "Latte-80.000(VND)","Capuchino-60.000(VND)", "Caramelmachiato-63.000(VND)", 
+            "Cinnamondolce-68.000(VND)", "EsperoMacchiato-100.000(VND)", "EsperoConPanna-100.000(VND)", 
+            "Espero-45.000(VND)", "Flatwhite-85.000(VND)","Honeyflatwhite-35.000(VND)", 
+            "PumpkinSpiceLatte-100.000(VND)", "Roastcoffee-69.000(VND)","Whitechocolatemocha-52.000(VND)"
         };
 
         for (String sanPham : tenSanPham) {
-            soLuongSanPham.put(sanPham, 0);
             JPanel itemPanel = taoPanelSanPham(sanPham);
             sanPhamPanel.add(itemPanel);
         }
@@ -65,27 +72,21 @@ public class MenuCaPheView extends JFrame {
         dieuKhienPanel.setLayout(new BoxLayout(dieuKhienPanel, BoxLayout.Y_AXIS));
         dieuKhienPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel lblTieuDe = new JLabel("Quản Lý Đơn Hàng");
+        JLabel lblTieuDe = new JLabel("Coffee Management");
         lblTieuDe.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 24));
         lblTieuDe.setForeground(new Color(139, 69, 19));
         lblTieuDe.setAlignmentX(Component.CENTER_ALIGNMENT);
         dieuKhienPanel.add(lblTieuDe);
 
-        dieuKhienPanel.add(Box.createVerticalStrut(10));
-        dieuKhienPanel.add(taoInputField("Số lượng:", txtSoLuong = new JTextField(30)));
-
         // Nút điều khiển
         JButton btnThemSanPham = taoNut("Thêm Món", new Color(139, 69, 19));
-        JButton btnXoaSanPham = taoNut("Xóa Món", new Color(139, 69, 19));
         JButton btnSuaSanPham = taoNut("Sửa Món", new Color(139, 69, 19));
 
         btnThemSanPham.addActionListener(e -> themSanPham());
-        btnXoaSanPham.addActionListener(e -> xoaSanPham());
-        btnSuaSanPham.addActionListener(e -> suaSoLuongSanPham());
+        btnSuaSanPham.addActionListener(e -> suaSanPham());
 
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 3, 10, 0));
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 0));
         buttonPanel.add(btnThemSanPham);
-        buttonPanel.add(btnXoaSanPham);
         buttonPanel.add(btnSuaSanPham);
         dieuKhienPanel.add(buttonPanel);
 
@@ -114,20 +115,8 @@ public class MenuCaPheView extends JFrame {
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 sanPhamDuocChon = sanPham;
-                txtSoLuong.setText(String.valueOf(soLuongSanPham.get(sanPhamDuocChon)));
             }
         });
-
-        JPanel buttonPanel = new JPanel();
-        JButton btnThem = new JButton("+");
-        JButton btnTru = new JButton("-");
-
-        btnThem.addActionListener(e -> capNhatSoLuong(sanPham, 1));
-        btnTru.addActionListener(e -> capNhatSoLuong(sanPham, -1));
-
-        buttonPanel.add(btnThem);
-        buttonPanel.add(btnTru);
-        panel.add(buttonPanel);
 
         return panel;
     }
@@ -141,74 +130,64 @@ public class MenuCaPheView extends JFrame {
         return button;
     }
 
-    private JPanel taoInputField(String label, JTextField textField) {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panel.add(new JLabel(label));
-        panel.add(textField);
-        textField.setEditable(true);
-        return panel;
-    }
-
-    private void capNhatSoLuong(String sanPham, int soLuong) {
-        int soLuongHienTai = soLuongSanPham.get(sanPham);
-        int soLuongMoi = Math.max(0, soLuongHienTai + soLuong);
-        soLuongSanPham.put(sanPham, soLuongMoi);
-        if (sanPham.equals(sanPhamDuocChon)) {
-            txtSoLuong.setText(String.valueOf(soLuongMoi));
-        }
-    }
-
     private void themSanPham() {
         if (sanPhamDuocChon != null) {
-            try {
-                int soLuong = Integer.parseInt(txtSoLuong.getText());
-                if (soLuong < 0) {
-                    JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                    return;
+            try (Connection conn = Database.getInstance().getConnection()) {
+                String sql = "INSERT INTO SanPham (MaSanPham, TenSanPham, LoaiSanPham, DonGia, ThanhPhan, MoTa, Con, LaDoAn, HinhAnh) " +
+                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement ps = conn.prepareStatement(sql);
+
+                // Tách thông tin sản phẩm từ sanPhamDuocChon
+                String[] parts = sanPhamDuocChon.split("-");
+                String tenSanPham = parts[0].trim();
+                String giaStr = parts[1].replaceAll("\\D+", "").trim();
+                int gia = Integer.parseInt(giaStr);
+
+                // Mã sản phẩm tự động với độ dài tối đa là 5 ký tự
+                String maSanPham = "SP" + System.currentTimeMillis() % 10000; // Sinh mã tự động
+                maSanPham = maSanPham.length() > 5 ? maSanPham.substring(0, 5) : maSanPham; // Giới hạn độ dài mã sản phẩm không quá 5 ký tự
+                String loaiSanPham = "Cà phê"; // Có thể lấy từ giao diện
+                String thanhPhan = "Mặc định"; // Có thể nhập từ giao diện
+                String anh = hinhAnhSanPham.get(sanPhamDuocChon);
+                boolean hienThi = true;
+                boolean khuyenMai = false;
+                String maVietTat = tenSanPham.replaceAll(" ", "");
+
+                ps.setString(1, maSanPham);
+                ps.setString(2, tenSanPham);
+                ps.setString(3, loaiSanPham);
+                ps.setInt(4, gia);
+                ps.setString(5, thanhPhan);
+                ps.setString(6, anh);
+                ps.setBoolean(7, hienThi);
+                ps.setBoolean(8, khuyenMai);
+                ps.setString(9, maVietTat);
+
+                int rowsInserted = ps.executeUpdate();
+                if (rowsInserted > 0) {
+                    JOptionPane.showMessageDialog(this, "Thêm món " + tenSanPham + " thành công!");
                 }
-                int soLuongHienTai = soLuongSanPham.getOrDefault(sanPhamDuocChon, 0);
-                soLuongSanPham.put(sanPhamDuocChon, soLuongHienTai + soLuong);
-                JOptionPane.showMessageDialog(this, "Đã thêm " + soLuong + " " + sanPhamDuocChon + ".");
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Lỗi khi thêm món vào cơ sở dữ liệu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn món để thêm.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn món trước khi thêm.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    
 
-    private void xoaSanPham() {
-        if (sanPhamDuocChon != null) {
-            soLuongSanPham.remove(sanPhamDuocChon);
-            txtSoLuong.setText("");
-            JOptionPane.showMessageDialog(this, "Đã xóa " + sanPhamDuocChon + " khỏi menu.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn món để xóa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
 
-    private void suaSoLuongSanPham() {
+
+    private void suaSanPham() {
         if (sanPhamDuocChon != null) {
-            try {
-                int soLuong = Integer.parseInt(txtSoLuong.getText());
-                if (soLuong < 0) {
-                    JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                soLuongSanPham.put(sanPhamDuocChon, soLuong);
-                JOptionPane.showMessageDialog(this, "Đã cập nhật số lượng " + sanPhamDuocChon + " thành " + soLuong + ".");
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(this, "Sửa thông tin món " + sanPhamDuocChon);
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn món để sửa số lượng.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn món trước khi sửa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MenuCaPheView view = new MenuCaPheView();
-            view.setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new MenuCaPheView().setVisible(true));
     }
 }

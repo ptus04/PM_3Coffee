@@ -1,5 +1,6 @@
 package coffee.view;
 
+import coffee.controller.NhanVienController;
 import coffee.dao.NhanVienDAO;
 import coffee.entity.NhanVien;
 
@@ -45,19 +46,13 @@ public class TraCuuNhanVienView extends JFrame {
         panelTimKiem.add(txtTimKiem);
         panelTimKiem.add(btnTimKiem);
 
-
         btnXuatCSV = new JButton("Xuất CSV");
-
-
-   
         btnXoaRong = new JButton("Xóa Rỗng");
         btnXoaRong.addActionListener(e -> xoaRongBANG());
 
         btnXuatCSV.addActionListener(e -> xuatCSV()); 
 
-
         panelTimKiem.add(btnXuatCSV);
-
         panelTimKiem.add(btnXoaRong); 
 
         moHinhBang = new DefaultTableModel();
@@ -111,16 +106,11 @@ public class TraCuuNhanVienView extends JFrame {
         }
 
         try {
-       
             List<NhanVien> danhSachNhanVien = nhanVienDAO.timKiemNhanVien(tuKhoa);
 
-          
             moHinhBang.setRowCount(0);
-
-          
             DateTimeFormatter dinhDangNgay = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        
             for (NhanVien nv : danhSachNhanVien) {
                 moHinhBang.addRow(new Object[] {
                     nv.getMaNhanVien(),
@@ -137,7 +127,6 @@ public class TraCuuNhanVienView extends JFrame {
                 });
             }
 
-           
             if (danhSachNhanVien.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy nhân viên nào.");
             }
@@ -146,14 +135,12 @@ public class TraCuuNhanVienView extends JFrame {
             JOptionPane.showMessageDialog(this, "Lỗi khi tìm kiếm: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
-   
 
     private void xoaRongBANG() {
         moHinhBang.setRowCount(0); 
     }
 
-
-    private void xuatCSV() {
+    public void xuatCSV() {
         try (FileWriter writer = new FileWriter("nhanvien.csv")) {
             writer.write("Mã NV,Họ Tên,Giới Tính,Ngày Sinh,Số CCCD,SĐT,Địa Chỉ,Hệ Số Lương,Là Quản Lý,Trạng Thái,Hình Ảnh\n");
 
@@ -177,6 +164,30 @@ public class TraCuuNhanVienView extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new TraCuuNhanVienView().setVisible(true));
+        SwingUtilities.invokeLater(() -> {
+            TraCuuNhanVienView view = new TraCuuNhanVienView();
+            new NhanVienController(view);  // Khởi tạo controller
+            view.setVisible(true);
+        });
+    }
+
+    public JButton getBtnTimKiem() {
+        return btnTimKiem;
+    }
+
+    public JButton getBtnXoaRong() {
+        return btnXoaRong;
+    }
+
+    public JButton getBtnXuatCSV() {
+        return btnXuatCSV;
+    }
+
+    public JTextField getTxtTimKiem() {
+        return txtTimKiem;
+    }
+
+    public DefaultTableModel getMoHinhBang() {
+        return moHinhBang;
     }
 }
