@@ -19,10 +19,8 @@ public class SanPham {
 	}
 
 	public void setTenSanPham(String tenSanPham) {
-		if (tenSanPham.isBlank()) {
-			throw new IllegalArgumentException("Tên cà phê không được rỗng hoặc chỉ có khoảng trắng");
-		}
-
+		if (tenSanPham.isBlank())
+			throw new IllegalArgumentException("Tên sản phẩm không được rỗng hoặc chỉ có khoảng trắng");
 		this.tenSanPham = tenSanPham;
 	}
 
@@ -31,10 +29,8 @@ public class SanPham {
 	}
 
 	public void setLoaiSanPham(String loaiSanPham) {
-		if (loaiSanPham.isBlank()) {
-			throw new IllegalArgumentException("Loại cà phê không được rỗng hoặc chỉ có khoảng trắng");
-		}
-
+		if (loaiSanPham.isBlank())
+			throw new IllegalArgumentException("Loại sản phẩm không được rỗng hoặc chỉ có khoảng trắng");
 		this.loaiSanPham = loaiSanPham;
 	}
 
@@ -43,9 +39,8 @@ public class SanPham {
 	}
 
 	public void setDonGia(double donGia) {
-		if (donGia <= 0) {
+		if (donGia <= 0)
 			throw new IllegalArgumentException("Đơn giá phải là số dương");
-		}
 
 		this.donGia = donGia;
 	}
@@ -55,9 +50,8 @@ public class SanPham {
 	}
 
 	public void setThanhPhan(String thanhPhan) {
-		if (thanhPhan.isBlank()) {
+		if (thanhPhan.isBlank())
 			throw new IllegalArgumentException("Thành phần không được rỗng hoặc chỉ có khoảng trắng");
-		}
 
 		this.thanhPhan = thanhPhan;
 	}
@@ -79,9 +73,8 @@ public class SanPham {
 	}
 
 	private void setMaSanPham(String maSanPham) {
-		if (!maSanPham.matches("CP[0-9]{8}")) {
-			throw new IllegalArgumentException("Mã cà phê phải bắt đầu bằng CP, theo sau là 8 ký số");
-		}
+		if (!maSanPham.matches("SP\\d{3}"))
+			throw new IllegalArgumentException("Mã sản phẩm phải bắt đầu bằng SP, theo sau là 3 ký số");
 		this.maSanPham = maSanPham;
 	}
 
