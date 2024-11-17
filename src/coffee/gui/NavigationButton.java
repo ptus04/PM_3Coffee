@@ -1,6 +1,7 @@
 package coffee.gui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Insets;
 
@@ -63,6 +64,8 @@ public class NavigationButton extends JButton {
 		setOpaque(false);
 		setContentAreaFilled(false);
 		setBorderPainted(false);
+
+		setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
 
 	public NavigationButton(String name, String iconPath, Color color) {
@@ -89,6 +92,8 @@ public class NavigationButton extends JButton {
 		setOpaque(false);
 		setContentAreaFilled(false);
 		setBorderPainted(false);
+
+		setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
 
 	@Override
