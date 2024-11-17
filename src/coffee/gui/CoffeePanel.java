@@ -1,14 +1,17 @@
 package coffee.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import coffee.constant.Colors;
 
 public class CoffeePanel extends JPanel {
 
@@ -16,20 +19,39 @@ public class CoffeePanel extends JPanel {
 
 	private String path;
 	private Image image;
+	private Insets insets;
+
+	public CoffeePanel() {
+		setOpaque(false);
+		setBackground(Colors.BACKGROUND);
+	}
 
 	public CoffeePanel(String path) {
 		this.path = path;
-		initialize();
+		setOpaque(false);
 	}
 
 	public CoffeePanel(Color color) {
+		setOpaque(false);
 		setBackground(color);
-		initialize();
 	}
 
-	private void initialize() {
-		setLayout(new BorderLayout());
+	public CoffeePanel(LayoutManager layout) {
 		setOpaque(false);
+		setBackground(Colors.BACKGROUND);
+		setLayout(layout);
+	}
+
+	public CoffeePanel(LayoutManager layout, Insets insets) {
+		this.insets = insets;
+		setOpaque(false);
+		setBackground(Colors.BACKGROUND);
+		setLayout(layout);
+	}
+
+	@Override
+	public Insets getInsets() {
+		return insets == null ? super.getInsets() : insets;
 	}
 
 	@Override
