@@ -17,7 +17,7 @@ public class CaLamViecDAO {
 		this.connection = connection;
 	}
 
-	// Phương thức để thêm ca làm việc
+	
 	public void addCaLamViec(CaLamViec caLamViec) throws SQLException {
 		String sql = "INSERT INTO CaLam(maCaLam, tenCaLam, thoiGianBatDau, thoiGianKetThuc, ghiChu) VALUES(?, ?, ?, ?, ?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -30,7 +30,7 @@ public class CaLamViecDAO {
 		}
 	}
 
-	// Phương thức để lấy tất cả ca làm việc
+
 	public List<CaLamViec> getAllCaLamViec() throws SQLException {
 		List<CaLamViec> caLamViecList = new ArrayList<>();
 		String sql = "SELECT * FROM CaLam";
@@ -45,7 +45,7 @@ public class CaLamViecDAO {
 		return caLamViecList;
 	}
 
-	// Phương thức để lấy ca làm việc theo mã
+	
 	public CaLamViec getCaLamViecByMa(String maCaLam) throws SQLException {
 		String sql = "SELECT * FROM CaLam WHERE maCaLam = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -58,10 +58,9 @@ public class CaLamViecDAO {
 				}
 			}
 		}
-		return null; // Trả về null nếu không tìm thấy
+		return null;
 	}
 
-	// Phương thức để cập nhật ca làm việc
 	public void updateCaLamViec(CaLamViec caLamViec) throws SQLException {
 		String sql = "UPDATE CaLam SET tenCaLam = ?, thoiGianBatDau = ?, thoiGianKetThuc = ?, ghiChu = ? WHERE maCaLam = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -74,7 +73,7 @@ public class CaLamViecDAO {
 		}
 	}
 
-	// Phương thức để xóa ca làm việc
+	
 	public void deleteCaLamViec(String maCaLam) throws SQLException {
 		String sql = "DELETE FROM CaLam WHERE maCaLam = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {

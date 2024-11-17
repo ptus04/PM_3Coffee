@@ -15,7 +15,7 @@ public class TaiKhoan {
     }
 
     public void setTenDangNhap(String tenDangNhap) {
-        // Kiểm tra tài khoản theo biểu thức chính quy
+     
         if (isValidUsername(tenDangNhap)) {
             this.tenDangNhap = tenDangNhap;
         } else {
@@ -46,7 +46,7 @@ public class TaiKhoan {
         } else {
             throw new IllegalArgumentException("Tài khoản chỉ được chứa chữ cái và số.");
         }
-        this.matKhau = matKhau; // Không kiểm tra mật khẩu
+        this.matKhau = matKhau; 
         this.nhanVien = nhanVien;
     }
 
@@ -56,12 +56,12 @@ public class TaiKhoan {
         return username != null && username.matches(USERNAME_PATTERN);
     }
 
-    @Override
+   
     public int hashCode() {
         return Objects.hash(matKhau, tenDangNhap);
     }
 
-    @Override
+ 
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
@@ -71,7 +71,7 @@ public class TaiKhoan {
         return Objects.equals(matKhau, other.matKhau) && Objects.equals(tenDangNhap, other.tenDangNhap);
     }
 
-    @Override
+
     public String toString() {
         return "TaiKhoan {tenDangNhap: " + tenDangNhap + ", nhanVien: " + nhanVien + "}";
     }

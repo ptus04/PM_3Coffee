@@ -18,7 +18,7 @@ public class NhanVien {
     private TaiKhoan taiKhoan;
     private TrangThaiLamViec trangThaiLamViec;
 
-    // Biểu thức chính quy và kiểm tra
+
 
     public String getMaNhanVien() {
         return maNhanVien;
@@ -105,7 +105,7 @@ public class NhanVien {
     }
 
     public void setLaQuanLy(boolean laQuanLy) {
-        // Không cần biểu thức chính quy cho kiểu boolean, nhưng có thể đảm bảo tính hợp lệ.
+      
         this.laQuanLy = laQuanLy;
     }
 
@@ -150,7 +150,7 @@ public class NhanVien {
         this.ngaySinh = ngaySinh;
         this.setSoCanCuoc(soCanCuoc);
         this.setSoDienThoai(soDienThoai);
-        this.setHeSoLuong(heSoLuong); // Kiểm tra hệ số lương
+        this.setHeSoLuong(heSoLuong); 
         this.laQuanLy = laQuanLy;
         this.hinhAnh = hinhAnh;
         this.taiKhoan = taiKhoan;

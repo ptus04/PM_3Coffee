@@ -32,12 +32,11 @@ public class ChiTietCaLamViecDAO {
 					NhanVien nhanVien = new NhanVien();
 					nhanVien.setMaNhanVien(rs.getString("maNhanVien"));
 
-					// nhanVien = nhanVienDAO.getNhanVienByMa(maNhanVien); // Nếu cần lấy thêm thông
-					// tin
+			
 
 					CaLamViec caLam = new CaLamViec(rs.getString("maCaLam"), "", null, null, "");
 					caLam.setTenCaLam(rs.getString("maCaLam"));
-					// Giả sử bạn có phương thức để lấy ca làm việc
+					
 					// caLam = caLamViecDAO.getCaLamByMa(maCaLam); // Nếu cần lấy thêm thông tin
 
 					ChiTietCaLamViec chiTiet = new ChiTietCaLamViec(nhanVien, caLam);

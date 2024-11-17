@@ -45,29 +45,20 @@ public class TraCuuNhanVienView extends JFrame {
         panelTimKiem.add(txtTimKiem);
         panelTimKiem.add(btnTimKiem);
 
-        // Các nút chức năng
-//        btnThem = new JButton("Thêm Nhân Viên");
-//        btnSua = new JButton("Chỉnh Sửa");
-//        btnXoa = new JButton("Xóa");
-        btnXuatCSV = new JButton("Xuất CSV");
-//        btnTinhLuong = new JButton("Tính Lương");
-//        btnXuatExcel = new JButton("Xuất Excel");
-//        btnIn = new JButton("In Danh Sách");
 
-        // Nút "Xóa Rỗng"
+        btnXuatCSV = new JButton("Xuất CSV");
+
+
+   
         btnXoaRong = new JButton("Xóa Rỗng");
         btnXoaRong.addActionListener(e -> xoaRongBANG());
 
-        btnXuatCSV.addActionListener(e -> xuatCSV()); // Thêm sự kiện cho nút Xuất CSV
+        btnXuatCSV.addActionListener(e -> xuatCSV()); 
 
-//        panelTimKiem.add(btnThem);
-//        panelTimKiem.add(btnSua);
-//        panelTimKiem.add(btnXoa);
+
         panelTimKiem.add(btnXuatCSV);
-//        panelTimKiem.add(btnTinhLuong);
-//        panelTimKiem.add(btnXuatExcel);
-//        panelTimKiem.add(btnIn);
-        panelTimKiem.add(btnXoaRong); // Thêm nút "Xóa Rỗng" vào giao diện
+
+        panelTimKiem.add(btnXoaRong); 
 
         moHinhBang = new DefaultTableModel();
         moHinhBang.setColumnIdentifiers(new String[] {
@@ -99,14 +90,14 @@ public class TraCuuNhanVienView extends JFrame {
             moHinhBang.addRow(new Object[] {
                 nv.getMaNhanVien(),
                 nv.getHoTen(),
-                "Nam", // Chỉnh sửa để luôn hiển thị là "Nam"
+                "Nam",
                 nv.getNgaySinh() != null ? nv.getNgaySinh().format(dinhDangNgay) : "N/A",
                 nv.getSoCanCuoc(),
                 nv.getSoDienThoai(),
                 nv.getDiaChi(),
                 nv.getHeSoLuong(),
                 nv.isLaQuanLy() ? "Có" : "Không",
-                "Còn làm việc", // Chỉnh sửa để luôn hiển thị là "Còn làm việc"
+                "Còn làm việc", 
                 nv.getHinhAnh()
             });
         }
@@ -120,33 +111,33 @@ public class TraCuuNhanVienView extends JFrame {
         }
 
         try {
-            // Lấy danh sách nhân viên từ cơ sở dữ liệu
+       
             List<NhanVien> danhSachNhanVien = nhanVienDAO.timKiemNhanVien(tuKhoa);
 
-            // Xóa dữ liệu cũ trong bảng
+          
             moHinhBang.setRowCount(0);
 
-            // Định dạng ngày sinh
+          
             DateTimeFormatter dinhDangNgay = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-            // Hiển thị danh sách nhân viên tìm được
+        
             for (NhanVien nv : danhSachNhanVien) {
                 moHinhBang.addRow(new Object[] {
                     nv.getMaNhanVien(),
                     nv.getHoTen(),
-                    "Nam", // Chỉnh sửa để luôn hiển thị là "Nam"
+                    "Nam", 
                     nv.getNgaySinh() != null ? nv.getNgaySinh().format(dinhDangNgay) : "N/A",
                     nv.getSoCanCuoc(),
                     nv.getSoDienThoai(),
                     nv.getDiaChi(),
                     nv.getHeSoLuong(),
                     nv.isLaQuanLy() ? "Có" : "Không",
-                    "Còn làm việc", // Chỉnh sửa để luôn hiển thị là "Còn làm việc"
+                    "Còn làm việc", 
                     nv.getHinhAnh()
                 });
             }
 
-            // Nếu không tìm thấy nhân viên nào
+           
             if (danhSachNhanVien.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy nhân viên nào.");
             }
@@ -155,13 +146,13 @@ public class TraCuuNhanVienView extends JFrame {
             JOptionPane.showMessageDialog(this, "Lỗi khi tìm kiếm: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
-//    
-    // Phương thức xóa tất cả dữ liệu trong bảng
+   
+
     private void xoaRongBANG() {
-        moHinhBang.setRowCount(0); // Xóa hết tất cả các dòng trong bảng
+        moHinhBang.setRowCount(0); 
     }
 
-    // Phương thức xuất dữ liệu ra file CSV
+
     private void xuatCSV() {
         try (FileWriter writer = new FileWriter("nhanvien.csv")) {
             writer.write("Mã NV,Họ Tên,Giới Tính,Ngày Sinh,Số CCCD,SĐT,Địa Chỉ,Hệ Số Lương,Là Quản Lý,Trạng Thái,Hình Ảnh\n");

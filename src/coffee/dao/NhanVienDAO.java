@@ -91,7 +91,7 @@ public class NhanVienDAO {
 	    String sql = "SELECT * FROM NhanVien WHERE maNhanVien LIKE ?";
 	    
 	    try (PreparedStatement stmt = Database.getInstance().getConnection().prepareStatement(sql)) {
-	        stmt.setString(1, "%" + maNhanVien + "%");  // Tìm kiếm với phần trăm để tìm kiếm theo chuỗi
+	        stmt.setString(1, "%" + maNhanVien + "%"); 
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            while (rs.next()) {
 	                NhanVien nv = new NhanVien();
