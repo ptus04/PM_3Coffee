@@ -137,10 +137,8 @@ public class DonHang {
 
 	@Override
 	public String toString() {
-		String thoiGianTao_String = thoiGianTao.toString().replace("T", " ");
-		String thoiGianIn_String = thoiGianTao.toString().replace("T", " ");
-		return maDonHang + ";" + khachTra + ";" + thue + ";" + thoiGianTao_String + ";" + thoiGianIn_String + ";"
-				+ ghiChu + ";" + phuongThucThanhToan + ";" + khachHang + ";" + nhanVien + ";" + khuyenMai;
+		return maDonHang + ";" + khachTra + ";" + thue + ";" + thoiGianTao + ";" + thoiGianIn + ";" + ghiChu + ";"
+				+ phuongThucThanhToan + ";" + khachHang + ";" + nhanVien + ";" + khuyenMai;
 	}
 
 	public double tinhTongTien() {

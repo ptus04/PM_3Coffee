@@ -32,8 +32,8 @@ public class ChiTietDonHangDAO {
 		while (rs.next()) {
 			int soLuong = rs.getInt(1);
 			String ghiChu = rs.getString(2);
-			SanPham sanPham = new SanPham(rs.getString(3));
-			DonHang donHang = new DonHang(rs.getString(4));
+			DonHang donHang = new DonHang(rs.getString(3));
+			SanPham sanPham = new SanPham(rs.getString(4));
 
 			list.add(new ChiTietDonHang(soLuong, ghiChu, sanPham, donHang));
 		}

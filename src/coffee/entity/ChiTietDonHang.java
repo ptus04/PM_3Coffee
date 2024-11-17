@@ -1,7 +1,5 @@
 package coffee.entity;
 
-import java.util.Objects;
-
 public class ChiTietDonHang {
 	private int soLuong;
 	private String ghiChu;
@@ -14,10 +12,8 @@ public class ChiTietDonHang {
 	}
 
 	public void setSoLuong(int soLuong) {
-		if (soLuong <= 0) {
+		if (soLuong <= 0)
 			throw new IllegalArgumentException("Số lượng phải là số dương");
-		}
-
 		this.soLuong = soLuong;
 	}
 

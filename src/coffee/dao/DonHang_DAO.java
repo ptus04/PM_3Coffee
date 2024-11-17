@@ -19,14 +19,12 @@ public class DonHang_DAO {
 	private static DonHang_DAO instance;
 
 	public static DonHang_DAO getInstance() {
-		if (instance == null) {
+		if (instance == null)
 			instance = new DonHang_DAO();
-		}
 		return instance;
 	}
 
 	public int add(DonHang t) {
-		// TODO Auto-generated method stub
 		int result = 0;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -55,14 +53,12 @@ public class DonHang_DAO {
 			System.out.println("Có " + result + " dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	public int remove(DonHang t) {
-		// TODO Auto-generated method stub
 		int result = 0;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -79,14 +75,12 @@ public class DonHang_DAO {
 			System.out.println("Có " + result + " dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	public int update(DonHang t) {
-		// TODO Auto-generated method stub
 		int result = 0;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -116,14 +110,12 @@ public class DonHang_DAO {
 			System.out.println("Có " + result + " dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	public ArrayList<DonHang> selectAll() {
-		// TODO Auto-generated method stub
 		ArrayList<DonHang> listofDonHang = new ArrayList<DonHang>();
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -150,8 +142,8 @@ public class DonHang_DAO {
 
 				NhanVien nhanVien = new NhanVien(maNhanVien);
 				KhachHang khachHang = new KhachHang(soDienThoai);
-				KhuyenMai khuyenMai = new KhuyenMai(maKhuyenMai);
-				DonHang donHang = new DonHang(maDonHang, phuongThucThanhToan, thue, thoiGianTao, thoiGianIn, ghiChu,
+				KhuyenMai khuyenMai = maKhuyenMai == null ? null : new KhuyenMai(maKhuyenMai);
+				DonHang donHang = new DonHang(maDonHang, khachTra, thue, thoiGianTao, thoiGianIn, ghiChu,
 						phuongThucThanhToan, khachHang, nhanVien, khuyenMai);
 
 				listofDonHang.add(donHang);
@@ -161,14 +153,12 @@ public class DonHang_DAO {
 //			System.out.println("Có "+result+" dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return listofDonHang;
 	}
 
 	public DonHang selectById(DonHang t) {
-		// TODO Auto-generated method stub
 		DonHang info = null;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -207,7 +197,6 @@ public class DonHang_DAO {
 //			System.out.println("Có "+result+" dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return info;

@@ -102,8 +102,8 @@ public class SanPham {
 		setMaSanPham(maSanPham);
 	}
 
-	public SanPham(String maSanPham, String tenSanPham, String loaiCaPhe, double donGia, String thanhPhanh, String moTa,
-			boolean con, boolean laDonAn, String hinhAn) {
+	public SanPham(String maSanPham, String tenSanPham, String loaiCaPhe, double donGia, String thanhPhan, String moTa,
+			boolean con, boolean laDonAn, String hinhAnh) {
 		setMaSanPham(maSanPham);
 		setTenSanPham(tenSanPham);
 		setLoaiSanPham(loaiCaPhe);
