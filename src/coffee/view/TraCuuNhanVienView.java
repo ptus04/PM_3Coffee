@@ -140,7 +140,7 @@ public class TraCuuNhanVienView extends JFrame {
         moHinhBang.setRowCount(0); 
     }
 
-    public void xuatCSV() {
+    public void xuatCSV() {  // Chỉnh sửa phạm vi truy cập thành public
         try (FileWriter writer = new FileWriter("nhanvien.csv")) {
             writer.write("Mã NV,Họ Tên,Giới Tính,Ngày Sinh,Số CCCD,SĐT,Địa Chỉ,Hệ Số Lương,Là Quản Lý,Trạng Thái,Hình Ảnh\n");
 
