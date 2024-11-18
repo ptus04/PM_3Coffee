@@ -1,5 +1,7 @@
 package coffee.gui;
 
+import java.awt.Font;
+
 import javax.swing.JLabel;
 
 import coffee.constant.Fonts;
@@ -22,6 +24,11 @@ public class CoffeeLabel extends JLabel {
 		super(text, horizontalAlignment);
 		setFont(Fonts.TEXT);
 		setAlignmentX(alignmentX);
+	}
+
+	public CoffeeLabel(String text, Font font) {
+		super(text);
+		setFont(font);
 	}
 
 }

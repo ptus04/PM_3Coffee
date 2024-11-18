@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.Path2D;
@@ -48,11 +49,11 @@ public class CoffeeComboBoxUI extends BasicComboBoxUI {
 
 		}
 
-		JButton arrowButton = new JButton(icon);
-		arrowButton.setBorder(null);
-		arrowButton.setContentAreaFilled(false);
+		JButton btnArrow = new JButton(icon);
+		btnArrow.setBorder(null);
+		btnArrow.setContentAreaFilled(false);
 
-		return arrowButton;
+		return btnArrow;
 	}
 
 	@Override
@@ -95,7 +96,7 @@ public class CoffeeComboBoxUI extends BasicComboBoxUI {
 
 				JLabel item = new JLabel(value.toString()) {
 
-					private static final long serialVersionUID = 1L;
+					private static final long serialVersionUID = -354828650152341122L;
 
 					{
 						setOpaque(true);
@@ -120,6 +121,9 @@ public class CoffeeComboBoxUI extends BasicComboBoxUI {
 				Color bg = ColorUtilities.darken(getBackground());
 				if (isSelected) {
 					item.setBackground(bg);
+					item.setForeground(getForeground());
+				} else if (cellHasFocus) {
+					item.setBackground(Colors.ACCENT);
 					item.setForeground(getForeground());
 				} else {
 					item.setBackground(getBackground());

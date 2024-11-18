@@ -31,14 +31,34 @@ public class CoffeePanel extends JPanel {
 		setOpaque(false);
 	}
 
+	public CoffeePanel(LayoutManager layout, String path) {
+		this.path = path;
+		setOpaque(false);
+		setLayout(layout);
+	}
+
+	public CoffeePanel(Color color, Insets insets) {
+		setOpaque(false);
+		setBackground(color);
+		this.insets = insets;
+	}
+
 	public CoffeePanel(Color color) {
 		setOpaque(false);
 		setBackground(color);
+
 	}
 
 	public CoffeePanel(LayoutManager layout) {
 		setOpaque(false);
 		setBackground(Colors.BACKGROUND);
+		setLayout(layout);
+	}
+
+	public CoffeePanel(LayoutManager layout, Color color) {
+		setOpaque(false);
+		setOpaque(false);
+		setBackground(color);
 		setLayout(layout);
 	}
 

@@ -1,5 +1,6 @@
 package coffee.gui;
 
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
@@ -58,6 +59,7 @@ public class CoffeeTextField extends JTextField {
 
 	private void initialize() {
 		setFont(Fonts.TEXT);
+		setCursor(new Cursor(Cursor.TEXT_CURSOR));
 	}
 
 	@Override
