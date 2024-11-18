@@ -41,23 +41,24 @@ public class ChiTietDonHangDAO {
 		return list;
 	}
 
-	public ChiTietDonHang getByMaDonHang(String id) throws SQLException {
+	public List<ChiTietDonHang> getByMaDonHang(String id) throws SQLException {
 		String sql = "SELECT * FROM ChiTietDonHang WHERE maDonHang LIKE ?";
 		Connection conn = Database.getInstance().getConnection();
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, id);
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = stmt.executeQuery();
 
-		if (rs.next()) {
+		List<ChiTietDonHang> list = new ArrayList<ChiTietDonHang>();
+		while (rs.next()) {
 			int soLuong = rs.getInt(1);
 			String ghiChu = rs.getString(2);
-			SanPham sanPham = new SanPham(rs.getString(3));
-			DonHang donHang = new DonHang(rs.getString(4));
+			DonHang donHang = new DonHang(rs.getString(3));
+			SanPham sanPham = new SanPham(rs.getString(4));
 
-			return new ChiTietDonHang(soLuong, ghiChu, sanPham, donHang);
+			list.add(new ChiTietDonHang(soLuong, ghiChu, sanPham, donHang));
 		}
 
-		return null;
+		return list;
 	}
 
 	public ChiTietDonHang getByMaSanPham(String id) throws SQLException {

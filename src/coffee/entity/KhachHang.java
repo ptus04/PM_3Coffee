@@ -32,7 +32,7 @@ public class KhachHang {
 
 	public KhachHang(String soDienThoai) {
 		setSoDienThoai(soDienThoai);
-		this.tenKhachHang = "Khách thường";
+		this.tenKhachHang = "Khách vãng lai";
 	}
 
 	public KhachHang(String soDienThoai, String tenKhachHang) {

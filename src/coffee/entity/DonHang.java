@@ -1,12 +1,12 @@
 package coffee.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class DonHang {
 	private String maDonHang;
 	private double khachTra;
-	private BigDecimal thue;
+	private double thue;
 	private LocalDateTime thoiGianTao;
 	private LocalDateTime thoiGianIn;
 	private String ghiChu;
@@ -15,12 +15,12 @@ public class DonHang {
 	private NhanVien nhanVien;
 	private KhuyenMai khuyenMai;
 
-	public DonHang(String maDonHang, double khachTra, BigDecimal thue, LocalDateTime thoiGianTao,
-			LocalDateTime thoiGianIn, String ghiChu, int phuongThucThanhToan, KhachHang khachHang, NhanVien nhanvien,
-			KhuyenMai khuyenmai) throws Exception {
+	public DonHang(String maDonHang, double khachTra, double thue, LocalDateTime thoiGianTao, LocalDateTime thoiGianIn,
+			String ghiChu, int phuongThucThanhToan, KhachHang khachHang, NhanVien nhanvien, KhuyenMai khuyenmai)
+			throws Exception {
 		setMaDonHang(maDonHang);
 		setKhachTra(khachTra);
-		setThue(thue);
+		this.thue = thue;
 		this.thoiGianTao = (thoiGianTao != null) ? thoiGianTao : LocalDateTime.now();
 		this.thoiGianIn = (thoiGianIn != null) ? thoiGianIn : LocalDateTime.now();
 		this.ghiChu = ghiChu;
@@ -61,13 +61,12 @@ public class DonHang {
 			throw new Exception("Số tiền khách trả phải > 0");
 	}
 
-	public BigDecimal getThue() {
+	public double getThue() {
 		return thue;
 	}
 
-	public void setThue(BigDecimal thue) {
-		if (thue != null)
-			this.thue = thue;
+	public void setThue(double thue) {
+		this.thue = thue;
 	}
 
 	public LocalDateTime getThoiGianTao() {
@@ -75,10 +74,7 @@ public class DonHang {
 	}
 
 	public void setThoiGianTao(LocalDateTime thoiGianTao) throws Exception {
-		if (thoiGianTao.isAfter(LocalDateTime.now()) || thoiGianTao.isEqual(LocalDateTime.now()))
-			this.thoiGianTao = thoiGianTao;
-		else
-			throw new Exception("Thời gian tạo phải >= thời gian hiện hành");
+		this.thoiGianTao = thoiGianTao;
 	}
 
 	public LocalDateTime getThoiGianIn() {
@@ -86,10 +82,7 @@ public class DonHang {
 	}
 
 	public void setThoiGianIn(LocalDateTime thoiGianIn) throws Exception {
-		if (thoiGianTao.isAfter(this.thoiGianTao) || thoiGianTao.isEqual(LocalDateTime.now()))
-			this.thoiGianIn = thoiGianIn;
-		else
-			throw new Exception("Thời gian in phải >= thời gian tạo");
+		this.thoiGianIn = thoiGianIn;
 	}
 
 	public String getGhiChu() {
@@ -133,6 +126,21 @@ public class DonHang {
 
 	public void setKhuyenmai(KhuyenMai khuyenmai) {
 		this.khuyenMai = khuyenmai;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(maDonHang);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof DonHang))
+			return false;
+		DonHang other = (DonHang) obj;
+		return Objects.equals(maDonHang, other.maDonHang);
 	}
 
 	@Override

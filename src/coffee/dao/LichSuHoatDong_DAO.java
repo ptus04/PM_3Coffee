@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import coffee.entity.LichSuHoatDong;
+import coffee.entity.LoaiLichSu;
 import coffee.entity.NhanVien;
 
 public class LichSuHoatDong_DAO {
@@ -22,7 +23,6 @@ public class LichSuHoatDong_DAO {
 	}
 
 	public int add(LichSuHoatDong t) {
-		// TODO Auto-generated method stub
 		int result = 0;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -37,10 +37,10 @@ public class LichSuHoatDong_DAO {
 			st.setTimestamp(2, Timestamp.valueOf(t.getThoiGian()));
 			st.setString(3, t.getNoiDung());
 			st.setDouble(4, t.getsoTienBanGiao());
-			st.setInt(5, t.getLoaiLichSu());
+			st.setInt(5, t.getLoaiLichSu().getValue());
 			st.setString(6, t.getNhanVien().getMaNhanVien());
 
-			result = st.executeUpdate(sql);
+			result = st.executeUpdate();
 
 			System.out.println("Bạn đã thực thi: " + sql);
 			System.out.println("Có " + result + " dòng bị thay đổi!");
@@ -92,7 +92,7 @@ public class LichSuHoatDong_DAO {
 			st.setTimestamp(1, Timestamp.valueOf(t.getThoiGian()));
 			st.setString(2, t.getNoiDung());
 			st.setDouble(3, t.getsoTienBanGiao());
-			st.setInt(4, t.getLoaiLichSu());
+			st.setInt(4, t.getLoaiLichSu().getValue());
 			st.setString(5, t.getNhanVien().getMaNhanVien());
 			st.setString(6, t.getMaLichSu());
 
@@ -132,7 +132,7 @@ public class LichSuHoatDong_DAO {
 				NhanVien nhanVien = new NhanVien(maNhanVien);
 
 				LichSuHoatDong lichSuHoatDong = new LichSuHoatDong(maLichSu, thoiGian, noiDung, soTienBanGiao,
-						loaiLichSu, nhanVien);
+						LoaiLichSu.from(loaiLichSu), nhanVien);
 
 				listoflichsuhoatdong.add(lichSuHoatDong);
 			}
@@ -172,7 +172,8 @@ public class LichSuHoatDong_DAO {
 
 				NhanVien nhanVien = new NhanVien(maNhanVien);
 
-				info = new LichSuHoatDong(maLichSu, thoiGian, noiDung, soTienBanGiao, loaiLichSu, nhanVien);
+				info = new LichSuHoatDong(maLichSu, thoiGian, noiDung, soTienBanGiao, LoaiLichSu.from(loaiLichSu),
+						nhanVien);
 
 			}
 

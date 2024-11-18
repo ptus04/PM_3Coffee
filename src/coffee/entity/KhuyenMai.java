@@ -51,7 +51,7 @@ public class KhuyenMai {
 	}
 
 	public void setNgayHetHan(LocalDateTime ngayHetHan) {
-		if (ngayHetHan.isAfter(ngayHieuLuc)) {
+		if (ngayHetHan.isBefore(ngayHieuLuc)) {
 			throw new IllegalArgumentException("Ngày hết hạn phải sau ngày hiệu lực");
 		}
 
@@ -64,6 +64,9 @@ public class KhuyenMai {
 		}
 
 		this.maKhuyenMai = maKhuyenMai;
+	}
+
+	public KhuyenMai() {
 	}
 
 	public KhuyenMai(String maKhuyenMai) {

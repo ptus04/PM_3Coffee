@@ -13,7 +13,7 @@ public enum LoaiLichSu {
 		this.value = value;
 	}
 
-	public LoaiLichSu from(int value) {
+	public static LoaiLichSu from(int value) {
 		for (LoaiLichSu loaiLichSu : LoaiLichSu.values()) {
 			if (loaiLichSu.getValue() == value) {
 				return loaiLichSu;

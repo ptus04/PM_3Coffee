@@ -48,14 +48,14 @@ public class ChiTietDonHang {
 		this.donHang = donHang;
 	}
 
-	public double tinhTongPhu() {
+	public double tinhThanhTien() {
 		return soLuong * sanPham.getDonGia();
 	}
 
 	@Override
 	public String toString() {
 		return "ChiTietDonHang {soLuong: " + soLuong + ", ghiChu: " + ghiChu + ", sanPham: " + sanPham
-				+ ", tinhTongPhu(): " + tinhTongPhu() + "}";
+				+ ", tinhTongPhu(): " + tinhThanhTien() + "}";
 	}
 
 }

@@ -11,16 +11,18 @@ import java.time.LocalDateTime;
 import coffee.entity.CaLamViec;
 
 public class CaLamViecDAO {
-	private Connection connection;
 
-	public CaLamViecDAO(Connection connection) {
-		this.connection = connection;
+	private static CaLamViecDAO instance;
+
+	public static CaLamViecDAO getInstance() {
+		if (instance == null)
+			instance = new CaLamViecDAO();
+		return instance;
 	}
 
-	
 	public void addCaLamViec(CaLamViec caLamViec) throws SQLException {
 		String sql = "INSERT INTO CaLam(maCaLam, tenCaLam, thoiGianBatDau, thoiGianKetThuc, ghiChu) VALUES(?, ?, ?, ?, ?)";
-		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+		try (PreparedStatement stmt = Database.getInstance().getConnection().prepareStatement(sql)) {
 			stmt.setString(1, caLamViec.getMaCaLam());
 			stmt.setString(2, caLamViec.getTenCaLam());
 			stmt.setObject(3, caLamViec.getThoiGianBatDau());
@@ -30,11 +32,11 @@ public class CaLamViecDAO {
 		}
 	}
 
-
 	public List<CaLamViec> getAllCaLamViec() throws SQLException {
 		List<CaLamViec> caLamViecList = new ArrayList<>();
 		String sql = "SELECT * FROM CaLam";
-		try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+		try (PreparedStatement stmt = Database.getInstance().getConnection().prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery()) {
 			while (rs.next()) {
 				CaLamViec caLamViec = new CaLamViec(rs.getString("maCaLam"), rs.getString("tenCaLam"),
 						rs.getObject("thoiGianBatDau", LocalDateTime.class),
@@ -45,10 +47,9 @@ public class CaLamViecDAO {
 		return caLamViecList;
 	}
 
-	
 	public CaLamViec getCaLamViecByMa(String maCaLam) throws SQLException {
 		String sql = "SELECT * FROM CaLam WHERE maCaLam = ?";
-		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+		try (PreparedStatement stmt = Database.getInstance().getConnection().prepareStatement(sql)) {
 			stmt.setString(1, maCaLam);
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
@@ -63,7 +64,7 @@ public class CaLamViecDAO {
 
 	public void updateCaLamViec(CaLamViec caLamViec) throws SQLException {
 		String sql = "UPDATE CaLam SET tenCaLam = ?, thoiGianBatDau = ?, thoiGianKetThuc = ?, ghiChu = ? WHERE maCaLam = ?";
-		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+		try (PreparedStatement stmt = Database.getInstance().getConnection().prepareStatement(sql)) {
 			stmt.setString(1, caLamViec.getTenCaLam());
 			stmt.setObject(2, caLamViec.getThoiGianBatDau());
 			stmt.setObject(3, caLamViec.getThoiGianKetThuc());
@@ -73,10 +74,9 @@ public class CaLamViecDAO {
 		}
 	}
 
-	
 	public void deleteCaLamViec(String maCaLam) throws SQLException {
 		String sql = "DELETE FROM CaLam WHERE maCaLam = ?";
-		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+		try (PreparedStatement stmt = Database.getInstance().getConnection().prepareStatement(sql)) {
 			stmt.setString(1, maCaLam);
 			stmt.executeUpdate();
 		}

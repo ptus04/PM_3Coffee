@@ -38,7 +38,7 @@ public class DonHang_DAO {
 
 			st.setString(1, t.getMaDonHang());
 			st.setDouble(2, t.getKhachTra());
-			st.setBigDecimal(3, t.getThue());
+			st.setDouble(3, t.getThue());
 			st.setTimestamp(4, Timestamp.valueOf(t.getThoiGianTao()));
 			st.setTimestamp(5, Timestamp.valueOf(t.getThoiGianIn()));
 			st.setString(6, t.getGhiChu());
@@ -94,7 +94,7 @@ public class DonHang_DAO {
 			PreparedStatement st = c.prepareStatement(sql);
 
 			st.setDouble(1, t.getKhachTra());
-			st.setBigDecimal(2, t.getThue());
+			st.setDouble(2, t.getThue());
 			st.setTimestamp(3, Timestamp.valueOf(t.getThoiGianTao()));
 			st.setTimestamp(4, Timestamp.valueOf(t.getThoiGianIn()));
 			st.setString(5, t.getGhiChu());
@@ -129,7 +129,7 @@ public class DonHang_DAO {
 			while (result.next()) {
 				String maDonHang = result.getString("maDonHang");
 				Double khachTra = result.getDouble("khachTra");
-				BigDecimal thue = result.getBigDecimal("thue");
+				double thue = result.getDouble("thue");
 				Timestamp thoiGianTao_temp = result.getTimestamp("thoiGianTao");
 				LocalDateTime thoiGianTao = thoiGianTao_temp.toLocalDateTime();
 				Timestamp thoiGianIn_temp = result.getTimestamp("thoiGianIn");
@@ -163,18 +163,18 @@ public class DonHang_DAO {
 		try {
 			Connection c = Database.getInstance().getConnection();
 
-			String sql = "SELECT * FROM [dbo].[DonHang]" + "WHERE DonHang = ?";
+			String sql = "SELECT * FROM [dbo].[DonHang]" + "WHERE maDonHang = ?";
 
 			PreparedStatement st = c.prepareStatement(sql);
 
 			st.setString(1, t.getMaDonHang());
 
-			ResultSet result = st.executeQuery(sql);
+			ResultSet result = st.executeQuery();
 
 			while (result.next()) {
 				String maDonHang = result.getString("maDonHang");
 				Double khachTra = result.getDouble("khachTra");
-				BigDecimal thue = result.getBigDecimal("thue");
+				double thue = result.getDouble("thue");
 				Timestamp thoiGianTao_temp = result.getTimestamp("thoiGianTao");
 				LocalDateTime thoiGianTao = thoiGianTao_temp.toLocalDateTime();
 				Timestamp thoiGianIn_temp = result.getTimestamp("thoiGianIn");
@@ -187,9 +187,9 @@ public class DonHang_DAO {
 
 				NhanVien nhanVien = new NhanVien(maNhanVien);
 				KhachHang khachHang = new KhachHang(soDienThoai);
-				KhuyenMai khuyenMai = new KhuyenMai(maKhuyenMai);
-				info = new DonHang(maDonHang, phuongThucThanhToan, thue, thoiGianTao, thoiGianIn, ghiChu,
-						phuongThucThanhToan, khachHang, nhanVien, khuyenMai);
+				KhuyenMai khuyenMai = maKhuyenMai == null ? null : new KhuyenMai(maKhuyenMai);
+				info = new DonHang(maDonHang, khachTra, thue, thoiGianTao, thoiGianIn, ghiChu, phuongThucThanhToan,
+						khachHang, nhanVien, khuyenMai);
 
 			}
 

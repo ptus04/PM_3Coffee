@@ -49,7 +49,7 @@ public class SanPhamDAO {
 		Connection conn = Database.getInstance().getConnection();
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, id);
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = stmt.executeQuery();
 
 		if (rs.next()) {
 			String maSanPham = rs.getString(1);
