@@ -9,6 +9,18 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.swing.JFrame;
+
+
 
 public class NhanVienController {
     private final TraCuuNhanVienView view;
