@@ -39,8 +39,8 @@ public class CaLamViecDAO {
 				ResultSet rs = stmt.executeQuery()) {
 			while (rs.next()) {
 				CaLamViec caLamViec = new CaLamViec(rs.getString("maCaLam"), rs.getString("tenCaLam"),
-						rs.getObject("thoiGianBatDau", LocalDateTime.class),
-						rs.getObject("thoiGianKetThuc", LocalDateTime.class), rs.getString("ghiChu"));
+						rs.getTime("thoiGianBatDau").toLocalTime(), rs.getTime("thoiGianKetThuc").toLocalTime(),
+						rs.getString("ghiChu"));
 				caLamViecList.add(caLamViec);
 			}
 		}
@@ -54,8 +54,8 @@ public class CaLamViecDAO {
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
 					return new CaLamViec(rs.getString("maCaLam"), rs.getString("tenCaLam"),
-							rs.getObject("thoiGianBatDau", LocalDateTime.class),
-							rs.getObject("thoiGianKetThuc", LocalDateTime.class), rs.getString("ghiChu"));
+							rs.getTime("thoiGianBatDau").toLocalTime(), rs.getTime("thoiGianKetThuc").toLocalTime(),
+							rs.getString("ghiChu"));
 				}
 			}
 		}

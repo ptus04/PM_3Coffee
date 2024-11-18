@@ -37,4 +37,11 @@ public class ThongKeNgay {
 		this.soLuongKhuyenMaiDaDung = soLuongKhuyenMaiDaDung;
 	}
 
+	@Override
+	public String toString() {
+		return "ThongKeNgay {ngayTaoThongKe: " + ngayTaoThongKe + ", doanhThu: " + doanhThu + ", soLuongHoaDon: "
+				+ soLuongHoaDon + ", soLuongKhachHang: " + soLuongKhachHang + ", soLuongKhuyenMaiDaDung: "
+				+ soLuongKhuyenMaiDaDung + "}";
+	}
+
 }

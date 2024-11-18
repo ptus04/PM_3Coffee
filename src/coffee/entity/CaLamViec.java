@@ -1,13 +1,14 @@
 package coffee.entity;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class CaLamViec {
 
 	private String maCaLam;
 	private String tenCaLam;
-	private LocalDateTime thoiGianBatDau;
-	private LocalDateTime thoiGianKetThuc;
+	private LocalTime thoiGianBatDau;
+	private LocalTime thoiGianKetThuc;
 	private String ghiChu;
 
 	public String getMaCaLam() {
@@ -31,19 +32,19 @@ public class CaLamViec {
 		this.tenCaLam = tenCaLam;
 	}
 
-	public LocalDateTime getThoiGianBatDau() {
+	public LocalTime getThoiGianBatDau() {
 		return thoiGianBatDau;
 	}
 
-	public void setThoiGianBatDau(LocalDateTime thoiGianBatDau) {
+	public void setThoiGianBatDau(LocalTime thoiGianBatDau) {
 		this.thoiGianBatDau = thoiGianBatDau;
 	}
 
-	public LocalDateTime getThoiGianKetThuc() {
+	public LocalTime getThoiGianKetThuc() {
 		return thoiGianKetThuc;
 	}
 
-	public void setThoiGianKetThuc(LocalDateTime thoiGianKetThuc) {
+	public void setThoiGianKetThuc(LocalTime thoiGianKetThuc) {
 		this.thoiGianKetThuc = thoiGianKetThuc;
 	}
 
@@ -59,7 +60,7 @@ public class CaLamViec {
 		this.setMaCaLam(maCaLam);
 	}
 
-	public CaLamViec(String maCaLam, String tenCaLam, LocalDateTime thoiGianBatDau, LocalDateTime thoiGianKetThuc,
+	public CaLamViec(String maCaLam, String tenCaLam, LocalTime thoiGianBatDau, LocalTime thoiGianKetThuc,
 			String ghiChu) {
 		this.setMaCaLam(maCaLam); // Gọi setter để kiểm tra biểu thức chính quy
 		this.tenCaLam = tenCaLam;

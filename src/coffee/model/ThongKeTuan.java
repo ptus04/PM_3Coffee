@@ -4,12 +4,12 @@ import java.time.LocalDate;
 
 public class ThongKeTuan {
 
-	private LocalDate[] ngayTaoThongKe;
+	private LocalDate[] ngayThongKe;
 	private double[] doanhThu;
 	private int[] soLuongHoaDon, soLuongKhachHang, soLuongKhuyenMaiDaDung;
 
-	public LocalDate[] getNgayTaoThongKe() {
-		return ngayTaoThongKe;
+	public LocalDate[] getNgayThongKe() {
+		return ngayThongKe;
 	}
 
 	public double[] getDoanhThu() {
@@ -28,9 +28,9 @@ public class ThongKeTuan {
 		return soLuongKhuyenMaiDaDung;
 	}
 
-	public ThongKeTuan(LocalDate[] ngayTaoThongKe, double[] doanhThu, int[] soLuongHoaDon, int[] soLuongKhachHang,
+	public ThongKeTuan(LocalDate[] ngayThongKe, double[] doanhThu, int[] soLuongHoaDon, int[] soLuongKhachHang,
 			int[] soLuongKhuyenMaiDaDung) {
-		this.ngayTaoThongKe = ngayTaoThongKe;
+		this.ngayThongKe = ngayThongKe;
 		this.doanhThu = doanhThu;
 		this.soLuongHoaDon = soLuongHoaDon;
 		this.soLuongKhachHang = soLuongKhachHang;

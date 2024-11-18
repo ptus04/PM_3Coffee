@@ -60,12 +60,9 @@ public class DangNhapView extends JFrame {
 	public DangNhapView() {
 		setTitle("3Coffee");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(1280, 720);
-		setLocationRelativeTo(null);
-		setContentPane(new CoffeePanel("/image/background.jpg"));
+		setContentPane(new CoffeePanel(new BorderLayout(), "/image/background.jpg"));
 
-		add(pSide = new CoffeePanel(new Color(255, 255, 255, 200)), BorderLayout.WEST);
-		pSide.setLayout(new GridLayout(2, 1));
+		add(pSide = new CoffeePanel(new GridLayout(2, 1), new Color(255, 255, 255, 200)), BorderLayout.WEST);
 
 		pSide.add(logo = new JLabel("3Coffee"));
 		logo.setFont(Fonts.HEADING_1B);
@@ -102,6 +99,9 @@ public class DangNhapView extends JFrame {
 		form.add(btnDangNhap, c);
 
 		addEventHandlers();
+
+		setSize(1280, 720);
+		setLocationRelativeTo(null);
 	}
 
 	private void addEventHandlers() {
@@ -123,6 +123,7 @@ public class DangNhapView extends JFrame {
 
 	public void resetView() {
 		tfUsername.setText("");
+		tfUsername.requestFocus();
 		tfPassword.setText("");
 	}
 }

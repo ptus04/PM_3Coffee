@@ -17,8 +17,8 @@ import coffee.shared.utility.ColorUtilities;
 public class Application {
 
 	public static final DateTimeFormatter FMT_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	public static final DateTimeFormatter FMT_TIME = DateTimeFormatter.ofPattern("HH:mm:ss");
 	public static final DateTimeFormatter FMT_DATE_TIME = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
-	public static final DateTimeFormatter FMT_DATE_TIME_VIE = DateTimeFormatter.ofPattern("HH:mm:ss ngày dd/MM/yyyy");
 	public static final NumberFormat FMT_CURRENCY = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
 	public static void main(String[] args) {

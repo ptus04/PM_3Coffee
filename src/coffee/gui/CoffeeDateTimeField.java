@@ -9,6 +9,8 @@ import java.time.LocalTime;
 
 import javax.swing.JFrame;
 
+import coffee.Application;
+
 public class CoffeeDateTimeField extends CoffeeTextField implements MouseListener {
 
 	private static final long serialVersionUID = -6810252889347180808L;
@@ -51,21 +53,21 @@ public class CoffeeDateTimeField extends CoffeeTextField implements MouseListene
 				return;
 			}
 			selectedDateTime = LocalDateTime.of(picker.getSelectedDate(), LocalTime.MIN);
-			setText(selectedDateTime.toString());
+			setText(selectedDateTime.format(Application.FMT_DATE));
 		} else if (mode == DateTimePicker.TIME_ONLY) {
 			if (picker.getSelectedTime() == null) {
 				setText("Chưa chọn");
 				return;
 			}
 			selectedDateTime = LocalDateTime.of(LocalDate.MIN, picker.getSelectedTime());
-			setText(selectedDateTime.toString());
+			setText(selectedDateTime.format(Application.FMT_TIME));
 		} else {
 			if (picker.getSelectedDateTime() == null) {
 				setText("Chưa chọn");
 				return;
 			}
 			selectedDateTime = picker.getSelectedDateTime();
-			setText(selectedDateTime.toString());
+			setText(selectedDateTime.format(Application.FMT_DATE_TIME));
 		}
 	}
 
