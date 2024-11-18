@@ -15,49 +15,61 @@ import java.util.stream.Stream;
 
 import javax.swing.JFrame;
 
-
-
 public class KhachHangController {
-    private TraCuuKhachHangView view;
-    private KhachHangDAO khachHangDAO;
 
-    public KhachHangController(TraCuuKhachHangView view) {
-        this.view = view;
-        this.khachHangDAO = KhachHangDAO.getInstance();
-    }
+	private static KhachHangController instance;
 
-    // Hàm gọi để hiển thị danh sách khách hàng
-    public void displayCustomers() {
-        view.displayCustomerData();
-    }
+	public static KhachHangController getInstance() {
+		if (instance == null)
+			instance = new KhachHangController();
+		return instance;
+	}
 
-    // Hàm gọi để tìm kiếm khách hàng theo mã hoặc tên
-    public void searchCustomer(String searchQuery) {
-        view.searchCustomer();
-    }
+	private TraCuuKhachHangView view;
 
-    // Hàm gọi để sửa tên khách hàng
-    public void editCustomerName(String oldName, String newName, String customerId) {
-        if (newName != null && !newName.trim().isEmpty()) {
-            try {
-                KhachHang customer = khachHangDAO.getById(customerId);
-                if (customer != null) {
-                    customer.setTenKhachHang(newName);
-                    boolean updated = khachHangDAO.capNhat(customer);
-                    if (updated) {
-                        view.updateTableAfterEdit(customerId, newName);
-                    } else {
-                        view.showError("Có lỗi khi cập nhật tên khách hàng.");
-                    }
-                } else {
-                    view.showError("Không tìm thấy khách hàng.");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                view.showError("Có lỗi khi cập nhật tên trong cơ sở dữ liệu.");
-            }
-        } else {
-            view.showError("Tên không hợp lệ.");
-        }
-    }
+	public TraCuuKhachHangView getView() {
+		return view;
+	}
+
+	private KhachHangDAO khachHangDAO;
+
+	public KhachHangController() {
+		this.view = new TraCuuKhachHangView();
+		this.khachHangDAO = KhachHangDAO.getInstance();
+	}
+
+	// Hàm gọi để hiển thị danh sách khách hàng
+	public void displayCustomers() {
+		view.displayCustomerData();
+	}
+
+	// Hàm gọi để tìm kiếm khách hàng theo mã hoặc tên
+	public void searchCustomer(String searchQuery) {
+		view.searchCustomer();
+	}
+
+	// Hàm gọi để sửa tên khách hàng
+	public void editCustomerName(String oldName, String newName, String customerId) {
+		if (newName != null && !newName.trim().isEmpty()) {
+			try {
+				KhachHang customer = khachHangDAO.getById(customerId);
+				if (customer != null) {
+					customer.setTenKhachHang(newName);
+					boolean updated = khachHangDAO.capNhat(customer);
+					if (updated) {
+						view.updateTableAfterEdit(customerId, newName);
+					} else {
+						view.showError("Có lỗi khi cập nhật tên khách hàng.");
+					}
+				} else {
+					view.showError("Không tìm thấy khách hàng.");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				view.showError("Có lỗi khi cập nhật tên trong cơ sở dữ liệu.");
+			}
+		} else {
+			view.showError("Tên không hợp lệ.");
+		}
+	}
 }

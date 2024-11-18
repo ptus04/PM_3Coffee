@@ -34,6 +34,12 @@ public class TrangChuController {
 	private TrangChuController() {
 		this.view = new TrangChuView();
 
+		view.addView(MenuCaPheController.class.getSimpleName(),
+				MenuCaPheController.getInstance().getView().getContentPane());
+		view.addView(KhachHangController.class.getSimpleName(),
+				KhachHangController.getInstance().getView().getContentPane());
+		view.addView(NhanVienController.class.getSimpleName(),
+				NhanVienController.getInstance().getView().getContentPane());
 		view.addView(BaoCaoThongKeController.class.getSimpleName(),
 				BaoCaoThongKeController.getInstance().getView().getContentPane());
 		view.addView(HoaDonController.class.getSimpleName(), HoaDonController.getInstance().getView().getContentPane());
@@ -76,18 +82,28 @@ public class TrangChuController {
 
 			if (nhanVien.isLaQuanLy()) {
 				BaoCaoThongKeController.getInstance().reloadThongKe();
+				view.showView(BaoCaoThongKeController.class.getSimpleName());
+
 				view.addBtnTrangChuListener(e -> {
 					view.showView(BaoCaoThongKeController.class.getSimpleName());
 					BaoCaoThongKeController.getInstance().reloadThongKe();
 				});
-				view.addBtnHoaDonListener(e -> {
-					view.showView(HoaDonController.class.getSimpleName());
-					HoaDonController.getInstance().reloadTable();
-				});
-			} else {
+				view.addBtnKhachHangListener(e -> view.showView(KhachHangController.class.getSimpleName()));
+				view.addBtnNhanVienListener(e -> view.showView(NhanVienController.class.getSimpleName()));
 
+			} else {
+				view.showView(TrangChuController.class.getSimpleName());
+				view.addBtnThongKeListener(e -> {
+					view.showView(BaoCaoThongKeController.class.getSimpleName());
+					BaoCaoThongKeController.getInstance().reloadThongKe();
+				});
 			}
 
+			view.addBtnHoaDonListener(e -> {
+				view.showView(HoaDonController.class.getSimpleName());
+				HoaDonController.getInstance().reloadTable();
+			});
+			view.addBtnCaPheListener(e -> view.showView(MenuCaPheController.class.getSimpleName()));
 			view.addBtnDangXuatListener(e -> logout());
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(view, e.getMessage(), "Lỗi truy vấn dữ liệu", JOptionPane.ERROR_MESSAGE);

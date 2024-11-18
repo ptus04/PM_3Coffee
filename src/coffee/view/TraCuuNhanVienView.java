@@ -166,7 +166,7 @@ public class TraCuuNhanVienView extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TraCuuNhanVienView view = new TraCuuNhanVienView();
-            new NhanVienController(view);  // Khởi tạo controller
+            new NhanVienController();  // Khởi tạo controller
             view.setVisible(true);
         });
     }

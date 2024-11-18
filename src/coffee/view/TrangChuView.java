@@ -114,8 +114,8 @@ public class TrangChuView extends JFrame {
 			pNavigation.add(btnKhuyenMai = new NavigationButton("Tra cứu khuyến mãi", "/image/discount.png"));
 			pNavigation.add(Box.createVerticalStrut(8));
 			pNavigation.add(btnHoaDon = new NavigationButton("Tra cứu đơn hàng", "/image/history.png"));
-			pNavigation.add(Box.createVerticalStrut(8));
-			pNavigation.add(btnNhanVien = new NavigationButton("Sửa thông tin cá nhân", "/image/users.png"));
+//			pNavigation.add(Box.createVerticalStrut(8));
+//			pNavigation.add(btnNhanVien = new NavigationButton("Sửa thông tin cá nhân", "/image/users.png"));
 			pNavigation.add(Box.createVerticalStrut(8));
 			pNavigation.add(btnThongKe = new NavigationButton("Thống kê", "/image/report.png"));
 		}

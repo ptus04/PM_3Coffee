@@ -11,77 +11,82 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class NhanVienController {
-    private final TraCuuNhanVienView view;
-    private final NhanVienDAO nhanVienDAO;
 
-    public NhanVienController(TraCuuNhanVienView view) {
-        this.view = view;
-        this.nhanVienDAO = NhanVienDAO.getInstance();
+	private static NhanVienController instance;
 
-        // Gắn các hành động từ View tới Controller
-        setupEventHandlers();
-    }
+	public static NhanVienController getInstance() {
+		if (instance == null)
+			instance = new NhanVienController();
+		return instance;
+	}
 
-    private void setupEventHandlers() {
-        view.getBtnTimKiem().addActionListener(e -> timKiemNhanVien());
-        view.getBtnXoaRong().addActionListener(e -> xoaRongBang());
-        view.getBtnXuatCSV().addActionListener(e -> xuatCSV());
-    }
+	private final TraCuuNhanVienView view;
+	private final NhanVienDAO nhanVienDAO;
 
-    // Hiển thị toàn bộ nhân viên từ cơ sở dữ liệu lên bảng
-    private void timKiemNhanVien() {
-        String tuKhoa = view.getTxtTimKiem().getText().trim();
-        if (tuKhoa.isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Vui lòng nhập mã nhân viên hoặc tên để tìm kiếm.");
-            return;
-        }
+	public TraCuuNhanVienView getView() {
+		return view;
+	}
 
-        try {
-            List<NhanVien> danhSachNhanVien = nhanVienDAO.timKiemNhanVien(tuKhoa);
-            DefaultTableModel model = view.getMoHinhBang();
-            model.setRowCount(0);  // Clear data
-            DateTimeFormatter dinhDangNgay = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	public NhanVienController() {
+		this.view = new TraCuuNhanVienView();
+		this.nhanVienDAO = NhanVienDAO.getInstance();
 
-            for (NhanVien nv : danhSachNhanVien) {
-                model.addRow(new Object[] {
-                    nv.getMaNhanVien(),
-                    nv.getHoTen(),
-                    "Nam", 
-                    nv.getNgaySinh() != null ? nv.getNgaySinh().format(dinhDangNgay) : "N/A",
-                    nv.getSoCanCuoc(),
-                    nv.getSoDienThoai(),
-                    nv.getDiaChi(),
-                    nv.getHeSoLuong(),
-                    nv.isLaQuanLy() ? "Có" : "Không",
-                    "Còn làm việc", 
-                    nv.getHinhAnh()
-                });
-            }
+		// Gắn các hành động từ View tới Controller
+		setupEventHandlers();
+	}
 
-            if (danhSachNhanVien.isEmpty()) {
-                JOptionPane.showMessageDialog(view, "Không tìm thấy nhân viên nào.");
-            }
+	private void setupEventHandlers() {
+		view.getBtnTimKiem().addActionListener(e -> timKiemNhanVien());
+		view.getBtnXoaRong().addActionListener(e -> xoaRongBang());
+		view.getBtnXuatCSV().addActionListener(e -> xuatCSV());
+	}
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(view, "Lỗi khi tìm kiếm: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+	// Hiển thị toàn bộ nhân viên từ cơ sở dữ liệu lên bảng
+	private void timKiemNhanVien() {
+		String tuKhoa = view.getTxtTimKiem().getText().trim();
+		if (tuKhoa.isEmpty()) {
+			JOptionPane.showMessageDialog(view, "Vui lòng nhập mã nhân viên hoặc tên để tìm kiếm.");
+			return;
+		}
 
-    private void xoaRongBang() {
-        view.getMoHinhBang().setRowCount(0); 
-    }
+		try {
+			List<NhanVien> danhSachNhanVien = nhanVienDAO.timKiemNhanVien(tuKhoa);
+			DefaultTableModel model = view.getMoHinhBang();
+			model.setRowCount(0); // Clear data
+			DateTimeFormatter dinhDangNgay = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    private void xuatCSV() {
-        try {
-            view.xuatCSV();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(view, "Lỗi khi xuất CSV: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+			for (NhanVien nv : danhSachNhanVien) {
+				model.addRow(new Object[] { nv.getMaNhanVien(), nv.getHoTen(), "Nam",
+						nv.getNgaySinh() != null ? nv.getNgaySinh().format(dinhDangNgay) : "N/A", nv.getSoCanCuoc(),
+						nv.getSoDienThoai(), nv.getDiaChi(), nv.getHeSoLuong(), nv.isLaQuanLy() ? "Có" : "Không",
+						"Còn làm việc", nv.getHinhAnh() });
+			}
+
+			if (danhSachNhanVien.isEmpty()) {
+				JOptionPane.showMessageDialog(view, "Không tìm thấy nhân viên nào.");
+			}
+
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(view, "Lỗi khi tìm kiếm: " + e.getMessage(), "Lỗi",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void xoaRongBang() {
+		view.getMoHinhBang().setRowCount(0);
+	}
+
+	private void xuatCSV() {
+		try {
+			view.xuatCSV();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(view, "Lỗi khi xuất CSV: " + e.getMessage(), "Lỗi",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
 
 	public void view() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
-
