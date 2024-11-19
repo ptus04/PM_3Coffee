@@ -2,6 +2,7 @@ package coffee.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class DonHang {
@@ -15,7 +16,11 @@ public class DonHang {
 	private KhachHang khachHang;
 	private NhanVien nhanVien;
 	private KhuyenMai khuyenMai;
-	private ArrayList<ChiTietDonHang> danhsach;
+	private List<ChiTietDonHang> danhsach;
+
+	public void setDanhsach(List<ChiTietDonHang> danhsach) {
+		this.danhsach = danhsach;
+	}
 
 	public DonHang(String maDonHang, double khachTra, double thue, LocalDateTime thoiGianTao, LocalDateTime thoiGianIn,
 			String ghiChu, int phuongThucThanhToan, KhachHang khachHang, NhanVien nhanvien, KhuyenMai khuyenmai)
@@ -32,20 +37,20 @@ public class DonHang {
 		this.khuyenMai = khuyenmai;
 
 	}
-	
+
 	public DonHang(ArrayList<ChiTietDonHang> danhsach) {
 		super();
 		this.danhsach = danhsach;
 	}
-	
 
-	public ArrayList<ChiTietDonHang> getDanhsach() {
+	public List<ChiTietDonHang> getDanhsach() {
 		return danhsach;
 	}
 
 	public void setDanhsach(ArrayList<ChiTietDonHang> danhsach) {
 		this.danhsach = danhsach;
 	}
+
 	public DonHang(String maDonHang) {
 		this.maDonHang = maDonHang;
 	}
@@ -144,12 +149,11 @@ public class DonHang {
 		this.khuyenMai = khuyenmai;
 	}
 
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(maDonHang);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -166,12 +170,11 @@ public class DonHang {
 				+ phuongThucThanhToan + ";" + khachHang + ";" + nhanVien + ";" + khuyenMai;
 	}
 
-
 	public double tinhTongTien() {
-		double sum=0;
-		for(ChiTietDonHang chitiet : danhsach)
+		double sum = 0;
+		for (ChiTietDonHang chitiet : danhsach)
 			sum += chitiet.tinhThanhTien();
-		return sum*(1+0.08);
+		return sum * (1 + 0.08);
 	}
 
 	public double tinhTienThua() {

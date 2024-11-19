@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 public class Database {
 
-//	private final String url = "jdbc:sqlserver://localhost:1433;databaseName=3Coffee;encrypt=false";
-	private final String url = "jdbc:sqlserver://phung-qlbvt.database.windows.net;databaseName=3Coffee;encrypt=false";
-//	private final String user = "sa";
-	private final String user = "app";
+	private final String url = "jdbc:sqlserver://localhost:1433;databaseName=3Coffee;encrypt=false";
+//	private final String url = "jdbc:sqlserver://phung-qlbvt.database.windows.net;databaseName=3Coffee;encrypt=false";
+	private final String user = "sa";
+//	private final String user = "app";
 	private String password;
 
 	private Connection connection;
@@ -22,8 +22,8 @@ public class Database {
 	}
 
 	public Database() {
-//		password = System.getenv("MSSQL_PASSWORD");
-		password = "12345678Ab!";
+		password = System.getenv("MSSQL_PASSWORD");
+//		password = "12345678Ab!";
 	}
 
 	public Connection getConnection() throws SQLException {

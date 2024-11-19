@@ -20,6 +20,7 @@ import coffee.entity.ChiTietDonHang;
 import coffee.entity.DonHang;
 import coffee.entity.KhachHang;
 import coffee.entity.NhanVien;
+import coffee.entity.SanPham;
 import coffee.shared.utility.PrinterUtilities;
 import coffee.view.ChiTietHoaDonView;
 import coffee.view.TraCuuDonHangView;
@@ -146,6 +147,7 @@ public class HoaDonController {
 				}
 				return x;
 			}).toList();
+			donHang.setDanhsach(chiTiet);
 			ChiTietHoaDonView chiTietDonHangView = new ChiTietHoaDonView(donHang, chiTiet);
 			chiTietDonHangView.setVisible(true);
 		} catch (SQLException e) {
@@ -175,6 +177,7 @@ public class HoaDonController {
 				}
 				return x;
 			}).toList();
+			donHang.setDanhsach(chiTiet);
 			ChiTietHoaDonView chiTietDonHangView = new ChiTietHoaDonView(donHang, chiTiet);
 			PrinterUtilities.getInstance().print(chiTietDonHangView, "In Hóa đơn " + maDonHang);
 		} catch (Exception e) {
@@ -231,10 +234,22 @@ public class HoaDonController {
 
 			model.setRowCount(0);
 			stream.forEach(x -> {
-				model.addRow(new Object[] { x.getMaDonHang(), x.getThoiGianTao(),
-						mapNhanVien.get(x.getNhanvien().getMaNhanVien()),
-						mapKhachHang.get(x.getKhachHang().getSoDienThoai()),
-						Application.FMT_CURRENCY.format(x.tinhTongTien()) });
+				try {
+					List<ChiTietDonHang> chiTiet = ChiTietDonHangDAO.getInstance().getByMaDonHang(x.getMaDonHang());
+					Map<String, SanPham> mapSanPham = SanPhamDAO.getInstance().getAll().stream()
+							.collect(Collectors.toMap(SanPham::getMaSanPham, p -> p));
+					chiTiet = chiTiet.stream().map(p -> {
+						p.setSanPham(mapSanPham.get(p.getSanPham().getMaSanPham()));
+						return p;
+					}).toList();
+					x.setDanhsach(chiTiet);
+					model.addRow(new Object[] { x.getMaDonHang(), x.getThoiGianTao().format(Application.FMT_DATE_TIME),
+							mapNhanVien.get(x.getNhanvien().getMaNhanVien()),
+							mapKhachHang.get(x.getKhachHang().getSoDienThoai()),
+							Application.FMT_CURRENCY.format(x.tinhTongTien()) });
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			});
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(view, e.getMessage(), "Lỗi truy vấn dữ liệu", JOptionPane.ERROR_MESSAGE);

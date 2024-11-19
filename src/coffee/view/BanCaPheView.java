@@ -381,10 +381,10 @@ public class BanCaPheView extends JFrame {
 
     public static void main(String[] args) {
         try {
-            BanCaPheView gui = new BanCaPheView();
-            gui.setVisible(true); 
-            BanCaPheController controller = new BanCaPheController(gui);
-            new SwitchJPanelController(gui);
+//            BanCaPheView gui = new BanCaPheView();
+//            gui.setVisible(true); 
+            BanCaPheController controller = new BanCaPheController();
+            new SwitchJPanelController(controller.getGui());
         } catch (SQLException e) {
             System.err.println("Error initializing POSInterfaceExample or DrinkButtonHandler: " + e.getMessage());
             e.printStackTrace();

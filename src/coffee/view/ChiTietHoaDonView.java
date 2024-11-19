@@ -119,7 +119,7 @@ public class ChiTietHoaDonView extends JFrame implements Printable {
 		pTienThua.add(new CoffeeLabel("Tiền thừa:"));
 		pTienThua.add(Box.createHorizontalGlue());
 		pTienThua.add(
-				new CoffeeLabel(Application.FMT_CURRENCY.format(donHang.tinhTongTien() * 1.08 - donHang.getKhachTra()),
+				new CoffeeLabel(Application.FMT_CURRENCY.format(donHang.getKhachTra() - donHang.tinhTongTien() * 1.08),
 						Fonts.HEADING_5));
 
 		pSouth.add(Box.createVerticalStrut(16));

@@ -25,8 +25,8 @@ public class Application {
 		SwingUtilities.invokeLater(() -> {
 			UIManager.put("Button.focus", ColorUtilities.darken(Colors.GRAY_50));
 
-//			DangNhapController.getInstance().showView();
-			TrangChuController.getInstance().showView(new TaiKhoan("vantu", "0", new NhanVien("NV241101")));
+			DangNhapController.getInstance().showView();
+//			TrangChuController.getInstance().showView(new TaiKhoan("vantu", "0", new NhanVien("NV241101")));
 		});
 
 	}
