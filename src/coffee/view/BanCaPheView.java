@@ -163,7 +163,7 @@ public class BanCaPheView extends JFrame {
             drinksPanel.add(drinkButton);
             i++;
         }
-        JScrollPane drinksScrollPane = new JScrollPane(drinksPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane drinksScrollPane = new JScrollPane(drinksPanel);
         drinksScrollPane.setPreferredSize(new Dimension(400, 400));
         tabbedPane.addTab("Đồ Uống", drinksScrollPane);
 
@@ -174,7 +174,7 @@ public class BanCaPheView extends JFrame {
             foodButtons.add(foodButton);
             foodPanel.add(foodButton);
         }
-        JScrollPane foodScrollPane = new JScrollPane(foodPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane foodScrollPane = new JScrollPane(foodPanel);
         foodScrollPane.setPreferredSize(new Dimension(400, 400));
         tabbedPane.addTab("Đồ Ăn", foodScrollPane);
 

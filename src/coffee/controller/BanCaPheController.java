@@ -14,6 +14,7 @@ import coffee.shared.PrimaryButton;
 import coffee.shared.SecondaryButton;
 import coffee.view.BanCaPheView;
 import coffee.view.NhapThongTinKhachHangView;
+import coffee.view.ThayDoiSoLuongView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,10 +28,15 @@ import java.util.ArrayList;
 public class BanCaPheController implements ActionListener {
     private BanCaPheView gui;
     private NhapThongTinKhachHangView view;
+    private ThayDoiSoLuongView view1;
     private NhapThongTinKhachHangController controller;
     private ProductinCart list = new ProductinCart();
     private SecondaryButton buttonPay;
     private SecondaryButton buttonEnter;
+    private SecondaryButton buttonDeleteAll;
+    private SecondaryButton buttonDelete;
+    private SecondaryButton buttonQuantity;
+    private PrimaryButton buttonThayDoi;
     private String maDonHang;
     private DonHang donHang;
     
@@ -57,7 +63,21 @@ public class BanCaPheController implements ActionListener {
         	if(button.getText().equals("Pay")) {
         		buttonPay = button;
         		buttonPay.addActionListener(this);
-        	}	
+        	}
+        	if(button.getText().equals("Delete All")) {
+        		buttonDeleteAll = button;
+        		buttonDeleteAll.addActionListener(this);
+        	}
+        	if(button.getText().equals("Delete")) {
+        		buttonDelete = button;
+        		buttonDelete.addActionListener(this);
+        	}
+        	if(button.getText().equals("Quantity")) {
+        		buttonQuantity = button;
+        		buttonQuantity.addActionListener(this);
+        	}
+
+        	
         }
         for(SecondaryButton button : gui.getToolButtonsPayment()) {
         	if(button.getText().equals("Enter")) {
@@ -82,10 +102,21 @@ public class BanCaPheController implements ActionListener {
             }
                 
         }
+        if(o.equals(buttonThayDoi)) {
+        	thayDoiActions();
+        }
+        if(o.equals(buttonDeleteAll)) {
+        	deleteAllActions();
+        }
+        if(o.equals(buttonDelete)) {
+        	deleteActions();
+        }	
         if(o.equals(buttonPay)) {
         	getTotalAfterClickPay();
-        	
-        }	
+        }
+        if(o.equals(buttonQuantity)) {
+        	changeNumberActions();
+        }
         if(o.equals(gui.getInfoCustomer())) {
 			getInfoCustomer();
         }
@@ -93,6 +124,31 @@ public class BanCaPheController implements ActionListener {
         	XuLyThanhToanHoaDonController();
     }
 
+	private void thayDoiActions() {
+		int row = gui.getTable().getSelectedRow();
+		int soLuong = Integer.parseInt(view1.getQuantity().getText());
+		gui.getTable().getModel().setValueAt( soLuong, row, 2);
+		view1.dispose();
+		
+	}
+	private void changeNumberActions() {
+		view1 = new ThayDoiSoLuongView();
+		view1.setVisible(true);
+    	buttonThayDoi = view1.getThayDoiButton();
+    	buttonThayDoi.addActionListener(e->thayDoiActions());
+	}
+	private void deleteActions() {
+		int row = gui.getTable().getSelectedRow();
+		int soLuong =  (int) gui.getTable().getModel().getValueAt( row, 2); 
+		if( soLuong > 0 ) {
+			soLuong = soLuong-1;
+			gui.getTable().getModel().setValueAt( soLuong, row, 2);
+		}else
+			gui.getTableModel().removeRow(row);
+	}
+	private void deleteAllActions() {
+		gui.getTableModel().setRowCount(0);
+	}
 	private void getTotalAfterClickPay() {
 		double check = Double.parseDouble(gui.getTxtTotal().getText())*(1+0.08); 
 		gui.getTotalAfterClickPay().setText(Double.toString(check)); 
