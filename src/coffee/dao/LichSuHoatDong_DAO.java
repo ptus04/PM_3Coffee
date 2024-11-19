@@ -46,14 +46,14 @@ public class LichSuHoatDong_DAO {
 			System.out.println("Có " + result + " dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	public int remove(LichSuHoatDong t) {
-		// TODO Auto-generated method stub
+		
 		int result = 0;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -70,14 +70,14 @@ public class LichSuHoatDong_DAO {
 			System.out.println("Có " + result + " dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	public int update(LichSuHoatDong t) {
-		// TODO Auto-generated method stub
+		
 		int result = 0;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -102,14 +102,14 @@ public class LichSuHoatDong_DAO {
 			System.out.println("Có " + result + " dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	public ArrayList<LichSuHoatDong> selectAll() {
-		// TODO Auto-generated method stub
+		
 		ArrayList<LichSuHoatDong> listoflichsuhoatdong = new ArrayList<LichSuHoatDong>();
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -141,14 +141,14 @@ public class LichSuHoatDong_DAO {
 //			System.out.println("Có "+result+" dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 		}
 		return listoflichsuhoatdong;
 	}
 
 	public LichSuHoatDong selectById(LichSuHoatDong t) {
-		// TODO Auto-generated method stub
+		
 		LichSuHoatDong info = null;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -181,7 +181,7 @@ public class LichSuHoatDong_DAO {
 //			System.out.println("Có "+result+" dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 		}
 		return info;

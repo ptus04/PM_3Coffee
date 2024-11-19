@@ -86,8 +86,8 @@ public class ChiTietDonHangDAO {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, entity.getSoLuong());
 		stmt.setString(2, entity.getGhiChu());
-		stmt.setString(3, entity.getSanPham().getMaSanPham());
-		stmt.setString(4, entity.getDonHang().getMaDonHang());
+		stmt.setString(3, entity.getDonHang().getMaDonHang());
+		stmt.setString(4, entity.getSanPham().getMaSanPham());
 		int rs = stmt.executeUpdate();
 
 		if (rs == 1) {

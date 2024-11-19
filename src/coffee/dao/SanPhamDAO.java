@@ -124,5 +124,26 @@ public class SanPhamDAO {
 		conn.rollback();
 		return false;
 	}
+	public ArrayList<String> getID() throws SQLException {
+		ArrayList<String> list=null;
+		try {
+			String sql = "SELECT maSanPham FROM SanPham";
+			Connection conn = Database.getInstance().getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			list = new ArrayList<String>();
+			while (rs.next()) {
+				String maSanPham = rs.getString(1);
+
+				list.add(maSanPham);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		return list;
+	}
 
 }

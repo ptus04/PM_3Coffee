@@ -20,7 +20,6 @@ public class ChiTietKhuyenMai_DAO {
 	}
 
 	public int add(ChiTietKhuyenMai t) {
-		// TODO Auto-generated method stub
 		int result = 0;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -37,14 +36,12 @@ public class ChiTietKhuyenMai_DAO {
 			System.out.println("Có " + result + " dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	public int remove(ChiTietKhuyenMai t) {
-		// TODO Auto-generated method stub
 		int result = 0;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -61,14 +58,14 @@ public class ChiTietKhuyenMai_DAO {
 			System.out.println("Có " + result + " dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
+		
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	public int update(ChiTietKhuyenMai t) {
-		// TODO Auto-generated method stub
+		
 		int result = 0;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -85,14 +82,14 @@ public class ChiTietKhuyenMai_DAO {
 			System.out.println("Có " + result + " dòng bị thay đổi!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
+		
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	public ArrayList<ChiTietKhuyenMai> selectAll() {
-		// TODO Auto-generated method stub
+		
 		ArrayList<ChiTietKhuyenMai> listofchitietkhuyenmai = new ArrayList<ChiTietKhuyenMai>();
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -116,14 +113,14 @@ public class ChiTietKhuyenMai_DAO {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+		
 			e.printStackTrace();
 		}
 		return listofchitietkhuyenmai;
 	}
 
 	public ChiTietKhuyenMai selectById(ChiTietKhuyenMai t) {
-		// TODO Auto-generated method stub
+		
 		ChiTietKhuyenMai info = null;
 		try {
 			Connection c = Database.getInstance().getConnection();
@@ -148,7 +145,7 @@ public class ChiTietKhuyenMai_DAO {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+		
 			e.printStackTrace();
 		}
 		return info;

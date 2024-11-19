@@ -54,7 +54,7 @@ public class KhachHangDAO {
 	}
 
 	public boolean them(KhachHang entity) throws SQLException {
-		String sql = "INSERT INTO KhachHang VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO KhachHang VALUES (?, ?)";
 		Connection conn = Database.getInstance().getConnection();
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, entity.getSoDienThoai());

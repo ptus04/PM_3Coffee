@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -47,7 +48,7 @@ public class DonHang_DAO {
 			st.setString(9, t.getKhachHang().getSoDienThoai());
 			st.setString(10, t.getKhuyenmai().getMaKhuyenMai());
 
-			result = st.executeUpdate(sql);
+			result = st.executeUpdate();
 
 			System.out.println("Bạn đã thực thi: " + sql);
 			System.out.println("Có " + result + " dòng bị thay đổi!");
@@ -69,7 +70,7 @@ public class DonHang_DAO {
 
 			st.setString(1, t.getMaDonHang());
 
-			result = st.executeUpdate(sql);
+			result = st.executeUpdate();
 
 			System.out.println("Bạn đã thực thi: " + sql);
 			System.out.println("Có " + result + " dòng bị thay đổi!");
@@ -104,7 +105,7 @@ public class DonHang_DAO {
 			st.setString(9, t.getKhuyenmai().getMaKhuyenMai());
 			st.setString(10, t.getMaDonHang());
 
-			result = st.executeUpdate(sql);
+			result = st.executeUpdate();
 
 			System.out.println("Bạn đã thực thi: " + sql);
 			System.out.println("Có " + result + " dòng bị thay đổi!");
@@ -149,8 +150,6 @@ public class DonHang_DAO {
 				listofDonHang.add(donHang);
 			}
 
-//			System.out.println("Bạn đã thực thi: " + sql);
-//			System.out.println("Có "+result+" dòng bị thay đổi!");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -193,13 +192,32 @@ public class DonHang_DAO {
 
 			}
 
-//			System.out.println("Bạn đã thực thi: " + sql);
-//			System.out.println("Có "+result+" dòng bị thay đổi!");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return info;
+	}
+	public ArrayList<String> getID() throws SQLException {
+		ArrayList<String> list=null;
+		try {
+			String sql = "SELECT maDonHang FROM DonHang";
+			Connection conn = Database.getInstance().getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			list = new ArrayList<String>();
+			while (rs.next()) {
+				String maDonHang = rs.getString(1);
+
+				list.add(maDonHang);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		return list;
 	}
 
 }

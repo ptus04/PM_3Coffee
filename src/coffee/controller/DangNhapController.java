@@ -82,7 +82,7 @@ public class DangNhapController {
 		double soTienBanGiao = 0;
 		if (!lichSuHoatDongList.isEmpty()) {
 			lichSuHoatDongList.sort((a, b) -> a.getThoiGian().compareTo(b.getThoiGian()));
-			soTienBanGiao = lichSuHoatDongList.getLast().getsoTienBanGiao();
+			soTienBanGiao = lichSuHoatDongList.get(lichSuHoatDongList.size()-1).getsoTienBanGiao();
 		}
 
 		try {

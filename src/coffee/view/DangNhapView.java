@@ -56,7 +56,7 @@ public class DangNhapView extends JFrame {
 	public PrimaryButton getBtnDangNhap() {
 		return btnDangNhap;
 	}
-
+	
 	public DangNhapView() {
 		setTitle("3Coffee");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
