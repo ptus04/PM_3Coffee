@@ -131,7 +131,7 @@ public class BanCaPheController implements ActionListener {
 		    } else {
 		        System.out.println("Thêm đơn hàng không thành công");
 		    }
-
+		    ArrayList<ChiTietDonHang> danhSachChiTiet = null;
 		    for (int i1 = 0; i1 < list.getSize(); i1++) {
 		    	System.out.println(i1);
 		        for (int j = 0; j < gui.getTable().getRowCount(); j++) {
@@ -144,6 +144,8 @@ public class BanCaPheController implements ActionListener {
 		            	SanPham sanPham = list.getProduct(i1);
 		            	System.out.println(sanPham.getMaSanPham());
 		                ChiTietDonHang chitiet = new ChiTietDonHang(soLuong, ghiChuChiTiet, sanPham, donHang);
+		                danhSachChiTiet = new ArrayList<ChiTietDonHang>();
+		                danhSachChiTiet.add(chitiet);
 		                boolean check = ChiTietDonHangDAO.getInstance().them(chitiet);
 		                if (check) {
 		                    System.out.println("Thêm chi tiết đơn hàng thành công");
@@ -153,6 +155,7 @@ public class BanCaPheController implements ActionListener {
 		            }
 		        }
 		    }
+		    donHang.setDanhsach(danhSachChiTiet);
 
 		} catch (Exception e) {
 		    e.printStackTrace();

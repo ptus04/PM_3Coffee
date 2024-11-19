@@ -30,8 +30,22 @@ public class DonHang {
 		this.khachHang = khachHang;
 		this.nhanVien = nhanvien;
 		this.khuyenMai = khuyenmai;
+
+	}
+	
+	public DonHang(ArrayList<ChiTietDonHang> danhsach) {
+		super();
+		this.danhsach = danhsach;
+	}
+	
+
+	public ArrayList<ChiTietDonHang> getDanhsach() {
+		return danhsach;
 	}
 
+	public void setDanhsach(ArrayList<ChiTietDonHang> danhsach) {
+		this.danhsach = danhsach;
+	}
 	public DonHang(String maDonHang) {
 		this.maDonHang = maDonHang;
 	}
@@ -130,11 +144,12 @@ public class DonHang {
 		this.khuyenMai = khuyenmai;
 	}
 
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(maDonHang);
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
