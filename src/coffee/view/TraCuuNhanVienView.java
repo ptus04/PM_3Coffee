@@ -190,4 +190,4 @@ public class TraCuuNhanVienView extends JFrame {
     public DefaultTableModel getMoHinhBang() {
         return moHinhBang;
     }
-}
+} 

@@ -5,6 +5,7 @@ import java.util.Objects;
 public class KhachHang {
 	private String soDienThoai;
 	private String tenKhachHang;
+	 private String diaChi;
 
 	public String getTenKhachHang() {
 		return tenKhachHang;
@@ -43,6 +44,14 @@ public class KhachHang {
 	@Override
 	public int hashCode() {
 		return Objects.hash(soDienThoai);
+	}
+
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
 	}
 
 	@Override
